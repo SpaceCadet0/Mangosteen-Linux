@@ -303,5 +303,5 @@ def test_pdf_text_keeps_words_and_lines_together(work):
     text = open(convert(convert(str(md), F.PDF), F.TXT), encoding="utf-8").read()
     lines = text.split("\n")
     assert lines[:4] == ["Report", "Hello world.", "one", "two"]
-    assert all(len(line) > 3 for line in lines[:-1] if line.strip())
+    assert not [line for line in lines if len(line) == 1 and line.isalpha()]  # no lone letters
     assert "More text here, in a line." in text
