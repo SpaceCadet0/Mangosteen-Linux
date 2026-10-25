@@ -69,9 +69,15 @@ def process_audio(path: str, suffix: str, audio_filter: str | None = None, graph
 
 
 def render_preview(path: str, output: str, audio_filter: str | None = None, graph: str | None = None,
-                   cancellation: CancellationToken | None = None) -> None:
-    """The processed sound only, for listening before saving."""
+                   start: float = 0.0, length: float | None = None, cancellation: CancellationToken | None = None) -> None:
+    """The processed sound only, for listening before saving. A graph is given the whole file, so with a window the
+    first `start` seconds are cut after processing."""
+    window = ["-ss", cut.seconds_text(start)] if start > 0 else []
     arguments = [*_sound_arguments(path, audio_filter, graph), "-vn", "-c:a", "aac", "-b:a", "160k"]
+    if graph:
+        arguments = [*arguments, *window, *(["-t", cut.seconds_text(length)] if length else [])]
+    else:
+        arguments = [*window, *arguments, *(["-t", cut.seconds_text(length)] if length else [])]
     media.run_ffmpeg(arguments, output, None, None, cancellation)
 
 

@@ -269,9 +269,16 @@ class Application(QObject):
     def _compress_all(self, files: list[str]) -> None:
         """Each file is compressed in its own way, with the default settings."""
         from .imaging import compress
+        from .mediatools import effects
 
-        self.jobs.run_each(L("Compressing"), L("Compressed"), files,
-                           lambda path, _t, _p: compress.compress_file(path))
+        def work(path: str, token, progress) -> str:  # noqa: ANN001
+            kind = file_format.detect(path)
+            if kind is not None and kind.category.is_media:
+                return effects.compress(path, None, progress, token)
+            return compress.compress_file(path)
+
+        has_media = any((k := file_format.detect(p)) is not None and k.category.is_media for p in files)
+        self.jobs.run_each(L("Compressing"), L("Compressed"), files, work, max_concurrent=1 if has_media else 3)
 
     def _recognize_text(self, files: list[str]) -> None:
         from .imaging import ocr

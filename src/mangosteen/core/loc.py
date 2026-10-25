@@ -86,6 +86,7 @@ _NOUNS = {
     "frame": (("frame", "frames"), ("кадр", "кадра", "кадров"), ("fotograma", "fotogramas")),
     "document": (("document", "documents"), ("документ", "документа", "документов"), ("documento", "documentos")),
     "bleep": (("bleep", "bleeps"), ("писк", "писка", "писков"), ("pitido", "pitidos")),
+    "area": (("area", "areas"), ("область", "области", "областей"), ("zona", "zonas")),
 }
 
 

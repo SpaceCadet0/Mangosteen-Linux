@@ -42,4 +42,4 @@ def _load_all() -> None:
 
 
 # Tool modules, imported on first use so that starting the app stays quick.
-_MODULES: list[str] = ["compress_tool", "crop_tool", "editor_tool", "annotate_tool", "background_tool", "collage_tool", "hide_tool", "metadata_tool", "remove_background_tool", "pdf_tools"]
+_MODULES: list[str] = ["compress_tool", "crop_tool", "editor_tool", "annotate_tool", "background_tool", "collage_tool", "hide_tool", "metadata_tool", "remove_background_tool", "pdf_tools", "media_tools", "audio_tools", "video_tools"]

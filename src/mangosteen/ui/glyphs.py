@@ -345,6 +345,26 @@ def magnifier(p):
     _line(p, 10.5, 8, 10.5, 13)
 
 
+def play(p):
+    _poly(p, 7, 4, 19, 12, 7, 20, 7, 4)
+
+
+def pause(p):
+    _line(p, 8, 5, 8, 19)
+    _line(p, 16, 5, 16, 19)
+
+
+def marker(p):
+    _line(p, 12, 3, 12, 21)
+    _poly(p, 6, 3, 18, 3, 12, 9, 6, 3)
+
+
+def camera(p):
+    _rect(p, 3, 7, 18, 13, 3)
+    _circle(p, 12, 13.5, 3.5)
+    _poly(p, 8, 7, 9.5, 4, 14.5, 4, 16, 7)
+
+
 GLYPHS: dict[str, Callable[[QPainter], None]] = {
     "image": image, "document": document, "film": film, "music": music, "archive": archive, "table": table,
     "subtitle": subtitle, "trim": trim, "split": split, "speed": speed, "volume": volume, "bleep": bleep,
@@ -354,7 +374,8 @@ GLYPHS: dict[str, Callable[[QPainter], None]] = {
     "removeBackground": remove_background, "float": float_, "copy": copy, "move": move, "path": path,
     "terminal": terminal, "rotateLeft": rotate_left, "rotateRight": rotate_right, "flipH": flip_h, "flipV": flip_v,
     "select": select, "arrow": arrow, "ellipse": ellipse, "textmark": textmark, "number": number,
-    "highlighter": highlighter, "magnifier": magnifier,
+    "highlighter": highlighter, "magnifier": magnifier, "play": play, "pause": pause, "marker": marker,
+    "camera": camera,
 }
 
 
