@@ -71,6 +71,15 @@ def _render(document, index: int, dpi: float = DPI, max_side: float = MAX_SIDE) 
         page.close()
 
 
+def _page_size(document, index: int) -> tuple[float, float]:  # noqa: ANN001
+    """The page size in points. The page object is closed here, before its document can be."""
+    page = document[index]
+    try:
+        return page.get_size()
+    finally:
+        page.close()
+
+
 def render_page(path: str, index: int = 0, dpi: float = DPI, max_side: float = MAX_SIDE) -> Image.Image:
     """A page on white, honouring its rotation."""
     with _lock:
@@ -90,7 +99,7 @@ def thumbnails(path: str, max_side: int, cancellation: CancellationToken | None 
             for index in range(len(document)):
                 if cancellation is not None:
                     cancellation.throw_if_cancelled()
-                width, height = document[index].get_size()
+                width, height = _page_size(document, index)
                 result.append(_render(document, index, dpi=72.0 * max_side / max(width, height, 1), max_side=max_side))
         finally:
             document.close()

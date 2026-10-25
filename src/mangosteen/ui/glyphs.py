@@ -286,6 +286,65 @@ def terminal(p):
     _line(p, 13, 15.5, 17, 15.5)
 
 
+def rotate_left(p):
+    _arc(p, 12, 13, 7.5, 90, 250)
+    _poly(p, 7, 2.5, 4.5, 6.5, 9.5, 8)
+
+
+def rotate_right(p):
+    _arc(p, 12, 13, 7.5, -160, 250)
+    _poly(p, 17, 2.5, 19.5, 6.5, 14.5, 8)
+
+
+def flip_h(p):
+    _line(p, 12, 3, 12, 21)
+    _poly(p, 9, 7, 3.5, 17, 9, 17, 9, 7)
+    _poly(p, 15, 7, 20.5, 17, 15, 17, 15, 7)
+
+
+def flip_v(p):
+    _line(p, 3, 12, 21, 12)
+    _poly(p, 7, 9, 17, 9, 17, 3.5, 7, 9)
+    _poly(p, 7, 15, 17, 15, 17, 20.5, 7, 15)
+
+
+def select(p):
+    _poly(p, 6, 3, 6, 19, 10.5, 15, 13.5, 21)
+    _line(p, 10.5, 15, 16, 15)
+
+
+def arrow(p):
+    _line(p, 5, 19, 19, 5)
+    _poly(p, 9, 5, 19, 5, 19, 15)
+
+
+def ellipse(p):
+    p.drawEllipse(QPointF(12, 12), 9, 6.5)
+
+
+def textmark(p):
+    _line(p, 5, 6, 19, 6)
+    _line(p, 12, 6, 12, 19)
+    _line(p, 9, 19, 15, 19)
+
+
+def number(p):
+    _circle(p, 12, 12, 9)
+    _poly(p, 10, 9, 12.5, 7.5, 12.5, 16.5)
+
+
+def highlighter(p):
+    _poly(p, 4, 20, 8, 20, 9.5, 17)
+    _path(p, lambda q: (q.moveTo(8.5, 15.5), q.lineTo(16, 4), q.lineTo(20, 8), q.lineTo(11, 17.5), q.closeSubpath()))
+
+
+def magnifier(p):
+    _circle(p, 10.5, 10.5, 6.5)
+    _line(p, 15.5, 15.5, 21, 21)
+    _line(p, 8, 10.5, 13, 10.5)
+    _line(p, 10.5, 8, 10.5, 13)
+
+
 GLYPHS: dict[str, Callable[[QPainter], None]] = {
     "image": image, "document": document, "film": film, "music": music, "archive": archive, "table": table,
     "subtitle": subtitle, "trim": trim, "split": split, "speed": speed, "volume": volume, "bleep": bleep,
@@ -293,7 +352,9 @@ GLYPHS: dict[str, Callable[[QPainter], None]] = {
     "frames": frames, "edit": edit, "annotate": annotate, "pages": pages, "background": background, "collage": collage,
     "info": info, "createPdf": create_pdf, "extract": extract, "merge": merge, "text": text,
     "removeBackground": remove_background, "float": float_, "copy": copy, "move": move, "path": path,
-    "terminal": terminal,
+    "terminal": terminal, "rotateLeft": rotate_left, "rotateRight": rotate_right, "flipH": flip_h, "flipV": flip_v,
+    "select": select, "arrow": arrow, "ellipse": ellipse, "textmark": textmark, "number": number,
+    "highlighter": highlighter, "magnifier": magnifier,
 }
 
 

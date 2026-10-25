@@ -126,7 +126,11 @@ def run(args, files: list[str], message: dict | None) -> int:  # noqa: ANN001
         return 0  # another instance won the race
     if message and message.get("cmd") not in ("menu", "quit"):
         application.handle_message(message)
-    return qapp.exec()
+    code = qapp.exec()
+    from .ui import teardown
+
+    teardown.delete_windows(qapp)
+    return code
 
 
 if __name__ == "__main__":

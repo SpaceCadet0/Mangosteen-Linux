@@ -82,6 +82,7 @@ _NOUNS = {
     "path": (("path", "paths"), ("путь", "пути", "путей"), ("ruta", "rutas")),
     "part": (("part", "parts"), ("часть", "части", "частей"), ("parte", "partes")),
     "page": (("page", "pages"), ("страница", "страницы", "страниц"), ("página", "páginas")),
+    "photo": (("photo", "photos"), ("фото", "фото", "фото"), ("foto", "fotos")),
     "frame": (("frame", "frames"), ("кадр", "кадра", "кадров"), ("fotograma", "fotogramas")),
     "document": (("document", "documents"), ("документ", "документа", "документов"), ("documento", "documentos")),
     "bleep": (("bleep", "bleeps"), ("писк", "писка", "писков"), ("pitido", "pitidos")),

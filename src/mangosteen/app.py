@@ -246,6 +246,10 @@ class Application(QObject):
                                lambda: archives.add_to_archive(files))
         elif action == "tool.mergePDF":
             self.jobs.run_once(L("Merging PDFs"), L("PDFs merged"), count(len(files), "file"), lambda: pdf.merge(files))
+        elif action == "tool.compressAll":
+            self._compress_all(files)
+        elif action == "tool.recognizeText":
+            self._recognize_text(files)
         elif action == "action.float":
             self.shelf.add(files)
         elif action == "action.copy":
@@ -261,6 +265,20 @@ class Application(QObject):
             self.actions.open_terminal(files, self.settings.terminal)
         else:
             self.open_tool(action, files)
+
+    def _compress_all(self, files: list[str]) -> None:
+        """Each file is compressed in its own way, with the default settings."""
+        from .imaging import compress
+
+        self.jobs.run_each(L("Compressing"), L("Compressed"), files,
+                           lambda path, _t, _p: compress.compress_file(path))
+
+    def _recognize_text(self, files: list[str]) -> None:
+        from .imaging import ocr
+
+        inputs = [p for p in files if ocr.accepts(p)]
+        self.jobs.run_each(L("Recognizing text"), L("Text recognized"), inputs,
+                           lambda path, token, progress: ocr.recognize_file(path, progress, token))
 
     def _move(self, files: list[str]) -> None:
         start = os.path.dirname(os.path.abspath(files[0].rstrip("/\\")))
