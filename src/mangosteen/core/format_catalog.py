@@ -10,13 +10,12 @@ from .file_format import Category, FileFormat, detect
 
 F = FileFormat
 
-# Written with Pillow and Qt; HEIC and AVIF need pillow-heif, video and audio need ffmpeg.
-_BASE_IMAGE_OUTPUTS = [F.PNG, F.JPG, F.WEBP, F.TIFF, F.GIF, F.PDF]
-_HEIF_IMAGE_OUTPUTS = [F.PNG, F.JPG, F.WEBP, F.HEIC, F.TIFF, F.AVIF, F.GIF, F.PDF]
+# Written with Pillow; HEIC needs pillow-heif, AVIF needs Pillow 11.3+, video and audio need ffmpeg.
+_IMAGE_OUTPUT_ORDER = [F.PNG, F.JPG, F.WEBP, F.HEIC, F.TIFF, F.AVIF, F.GIF, F.PDF]
 
 # Formats the editors (crop, editor, annotate, background, hide…) save an edited image in: the image targets
 # without PDF, plus BMP, so an edited BMP stays a BMP. Anything else is saved as PNG.
-EDITABLE_IMAGE_FORMATS = frozenset({F.PNG, F.JPG, F.WEBP, F.TIFF, F.GIF, F.BMP, F.HEIC, F.AVIF})
+EDITABLE_IMAGE_FORMATS = frozenset({F.PNG, F.JPG, F.WEBP, F.TIFF, F.GIF, F.BMP})
 
 VIDEO_OUTPUTS = [F.MP4, F.MOV, F.MKV, F.WEBM, F.AVI, F.WMV, F.GIF, F.MP3]
 AUDIO_OUTPUTS = [F.MP3, F.M4A, F.WAV, F.FLAC, F.OGG, F.OPUS, F.AIFF, F.WMA]
@@ -27,7 +26,6 @@ TABLE_OUTPUTS = [F.CSV, F.TSV, F.XLSX]
 ARCHIVE_OUTPUTS = [F.ZIP, F.TAR, F.TGZ]
 
 _BASE_IMAGE_INPUTS = frozenset({F.PNG, F.JPG, F.TIFF, F.BMP, F.GIF, F.ICO, F.ICNS, F.WEBP, F.SVG, F.PSD, F.JP2, F.TGA})
-_HEIF_IMAGE_INPUTS = frozenset({F.HEIC, F.AVIF})
 
 # Order of segments on the wheel when the selection mixes kinds of files.
 _DISPLAY_ORDER = [
@@ -41,11 +39,17 @@ _DISPLAY_ORDER = [
 
 
 def image_outputs() -> list[FileFormat]:
-    return list(_HEIF_IMAGE_OUTPUTS if capabilities.has_heif() else _BASE_IMAGE_OUTPUTS)
+    return [f for f in _IMAGE_OUTPUT_ORDER
+            if (f is not F.HEIC or capabilities.has_heic()) and (f is not F.AVIF or capabilities.has_avif())]
 
 
 def image_inputs() -> frozenset[FileFormat]:
-    return _BASE_IMAGE_INPUTS | _HEIF_IMAGE_INPUTS if capabilities.has_heif() else _BASE_IMAGE_INPUTS
+    extra = set()
+    if capabilities.has_heic():
+        extra.add(F.HEIC)
+    if capabilities.has_avif() or capabilities.has_heic():
+        extra.add(F.AVIF)
+    return _BASE_IMAGE_INPUTS | extra
 
 
 def is_page_image(fmt: FileFormat) -> bool:

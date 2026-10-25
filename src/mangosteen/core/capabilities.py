@@ -17,9 +17,20 @@ def has_ffmpeg() -> bool:
 
 
 @functools.lru_cache(maxsize=None)
-def has_heif() -> bool:
-    """HEIC and AVIF come from pillow-heif."""
+def has_heic() -> bool:
+    """HEIC comes from pillow-heif (libheif with x265)."""
     return importlib.util.find_spec("pillow_heif") is not None
+
+
+@functools.lru_cache(maxsize=None)
+def has_avif() -> bool:
+    """AVIF is built into Pillow 11.3 and later."""
+    try:
+        from PIL import features
+
+        return bool(features.check("avif"))
+    except Exception:  # noqa: BLE001 - an old or broken Pillow just means no AVIF
+        return False
 
 
 @functools.lru_cache(maxsize=None)
@@ -34,5 +45,5 @@ def has_onnxruntime() -> bool:
 
 def reset() -> None:
     """Forgets what was probed; for tests that change PATH."""
-    for function in (has_ffmpeg, has_heif, has_tesseract, has_onnxruntime):
+    for function in (has_ffmpeg, has_heic, has_avif, has_tesseract, has_onnxruntime):
         function.cache_clear()
