@@ -115,8 +115,9 @@ class _ListeningWindow(MediaToolWindow):
 
 # MARK: Volume
 
-_LOUDNESS = [(L("Streaming and video, −14 LUFS"), -14.0), (L("Podcast, −16 LUFS"), -16.0),
-             (L("Broadcast, −23 LUFS"), -23.0), (L("Loud, −9 LUFS"), -9.0)]
+def _loudness() -> list[tuple[str, float]]:
+    return [(L("Streaming and video, −14 LUFS"), -14.0), (L("Podcast, −16 LUFS"), -16.0),
+            (L("Broadcast, −23 LUFS"), -23.0), (L("Loud, −9 LUFS"), -9.0)]
 
 
 class NormalizeTool(_ListeningWindow):
@@ -130,7 +131,7 @@ class NormalizeTool(_ListeningWindow):
 
         side, layout = _side()
         self._preset = QComboBox()
-        for title, value in _LOUDNESS:
+        for title, value in _loudness():
             self._preset.addItem(title, value)
         self._preset.currentIndexChanged.connect(lambda _i: self._level.setValue(self._preset.currentData()))
         form = QFormLayout()
@@ -182,7 +183,8 @@ class NormalizeTool(_ListeningWindow):
 
 # MARK: Bleep
 
-_TONES = [(L("Classic, 1000 Hz"), 1000), (L("Low, 600 Hz"), 600), (L("High, 1500 Hz"), 1500)]
+def _tones() -> list[tuple[str, int]]:
+    return [(L("Classic, 1000 Hz"), 1000), (L("Low, 600 Hz"), 600), (L("High, 1500 Hz"), 1500)]
 
 
 class BleepTool(_ListeningWindow):
@@ -211,7 +213,7 @@ class BleepTool(_ListeningWindow):
         self._summary = QLabel("")
         layout.addWidget(self._summary)
         self._tone = QComboBox()
-        for title, value in _TONES:
+        for title, value in _tones():
             self._tone.addItem(title, value)
         tone_form = QFormLayout()
         tone_form.addRow(L("Tone"), self._tone)

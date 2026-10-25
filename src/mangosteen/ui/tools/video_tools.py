@@ -21,8 +21,9 @@ from .media_widgets import MediaToolWindow, clock, time_field
 
 _FRAME_HEIGHT = 720
 
-_ASPECTS = [(L("Free"), None), (L("1:1"), 1.0), (L("4:3"), 4 / 3), (L("3:2"), 3 / 2), (L("16:9"), 16 / 9),
-            (L("9:16"), 9 / 16), (L("3:4"), 3 / 4), (L("4:5"), 4 / 5)]
+def _aspects() -> list[tuple[str, float | None]]:
+    return [(L("Free"), None), ("1:1", 1.0), ("4:3", 4 / 3), ("3:2", 3 / 2), ("16:9", 16 / 9), ("9:16", 9 / 16), ("3:4", 3 / 4),
+            ("4:5", 4 / 5)]
 
 
 # MARK: Reframe
@@ -46,7 +47,7 @@ class CropVideoTool(MediaToolWindow):
         side, layout = _side(260)
         form = QFormLayout()
         self._aspect = QComboBox()
-        for title, ratio in _ASPECTS:
+        for title, ratio in _aspects():
             self._aspect.addItem(title, ratio)
         self._aspect.currentIndexChanged.connect(self._aspect_changed)
         form.addRow(L("Shape"), self._aspect)

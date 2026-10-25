@@ -326,7 +326,8 @@ class FramesTool(MediaToolWindow):
 
 # MARK: Compress
 
-_HEIGHTS = [(L("Original size"), None), ("2160p", 2160), ("1440p", 1440), ("1080p", 1080), ("720p", 720), ("480p", 480),
+def _heights() -> list[tuple[str, int | None]]:
+    return [(L("Original size"), None), ("2160p", 2160), ("1440p", 1440), ("1080p", 1080), ("720p", 720), ("480p", 480),
             ("360p", 360)]
 
 
@@ -347,7 +348,7 @@ class CompressMediaTool(MediaToolWindow):
         layout.addWidget(self._quality)
         form = QFormLayout()
         self._height = QComboBox()
-        for title, value in _HEIGHTS:
+        for title, value in _heights():
             self._height.addItem(title, value)
         self._height.currentIndexChanged.connect(self._changed)
         if has_video:

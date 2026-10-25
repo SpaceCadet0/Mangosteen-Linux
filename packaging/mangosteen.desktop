@@ -1,0 +1,35 @@
+[Desktop Entry]
+Type=Application
+Name=Mangosteen
+GenericName=File converter and toolbox
+GenericName[ru]=Конвертер файлов и инструменты
+GenericName[es]=Convertidor de archivos y herramientas
+Comment=Zero-click file converter and toolbox
+Comment[ru]=Конвертер файлов и набор инструментов в один жест
+Comment[es]=Convertidor de archivos y herramientas sin clics
+Exec=mangosteen
+Icon=mangosteen
+Terminal=false
+Categories=Utility;Graphics;AudioVideo;
+Keywords=convert;converter;pdf;image;video;audio;compress;crop;trim;ocr;
+StartupNotify=false
+StartupWMClass=mangosteen
+Actions=Settings;Wheel;Quit;
+
+[Desktop Action Settings]
+Name=Settings
+Name[ru]=Настройки
+Name[es]=Ajustes
+Exec=mangosteen --settings
+
+[Desktop Action Wheel]
+Name=Choose files…
+Name[ru]=Выбрать файлы…
+Name[es]=Elegir archivos…
+Exec=mangosteen --wheel convert %F
+
+[Desktop Action Quit]
+Name=Quit Mangosteen
+Name[ru]=Выйти из Mangosteen
+Name[es]=Salir de Mangosteen
+Exec=mangosteen --quit

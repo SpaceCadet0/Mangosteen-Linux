@@ -13,8 +13,10 @@ from ..core.wheel_catalog import WheelKind
 
 
 def run(qapp, what: str, output: str, files: list[str]) -> int:  # noqa: ANN001
+    from ..core import loc
     from . import brand, teardown
 
+    loc.set_language(settings_module.Settings.load().effective_language)
     brand.apply_palette(qapp)
     widget = build(qapp, what, files)
     if widget is None:

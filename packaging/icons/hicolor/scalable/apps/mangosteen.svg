@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="180.622mm" height="180.622mm"
+ viewBox="0 0 512 512"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny">
+<title>Mangosteen</title>
+<desc>Generated with Qt</desc>
+<defs>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="252.672" fx="183.808" fy="171.776" id="gradient1">
+    <stop offset="0" stop-color="#94294d" stop-opacity="1" />
+    <stop offset="1" stop-color="#5c0f30" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="197.325" fx="256" fy="256" id="gradient2">
+    <stop offset="0" stop-color="#9e334d" stop-opacity="1" />
+    <stop offset="0.8" stop-color="#9e334d" stop-opacity="1" />
+    <stop offset="1" stop-color="#801f3d" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient3">
+    <stop offset="0" stop-color="#dbcacd" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#fffcfa" stop-opacity="1" />
+    <stop offset="1" stop-color="#fffcfa" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient4">
+    <stop offset="0" stop-color="#d9c6cb" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#fcf7f7" stop-opacity="1" />
+    <stop offset="1" stop-color="#fcf7f7" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient5">
+    <stop offset="0" stop-color="#dbc8c9" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#fffaf5" stop-opacity="1" />
+    <stop offset="1" stop-color="#fffaf5" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient6">
+    <stop offset="0" stop-color="#d7c4cb" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#faf5f7" stop-opacity="1" />
+    <stop offset="1" stop-color="#faf5f7" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient7">
+    <stop offset="0" stop-color="#dbcacb" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#fffcf7" stop-opacity="1" />
+    <stop offset="1" stop-color="#fffcf7" stop-opacity="1" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="256" cy="256" r="173.261" fx="256" fy="256" id="gradient8">
+    <stop offset="0" stop-color="#d9c6c9" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#fcf7f5" stop-opacity="1" />
+    <stop offset="1" stop-color="#fcf7f5" stop-opacity="1" />
+</radialGradient>
+</defs>
+<g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
+
+<g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#33051a" fill-opacity="0.0699931" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="256" cy="263.219" r="257.966"/>
+<circle cx="256" cy="263.219" r="255.078"/>
+<circle cx="256" cy="263.219" r="252.191"/>
+<circle cx="256" cy="263.219" r="249.303"/>
+<circle cx="256" cy="263.219" r="246.415"/>
+<circle cx="256" cy="263.219" r="243.528"/>
+</g>
+
+<g fill="url(#gradient1)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="256" cy="256" r="240.64"/>
+</g>
+
+<g fill="url(#gradient2)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="256" cy="256" r="197.325"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="99.215" cy="134.552" r="3.95786"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="468.791" cy="295.048" r="3.23914"/>
+<circle cx="387.388" cy="387.46" r="3.96828"/>
+<circle cx="407.836" cy="139.058" r="3.01346"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="206" cy="42.3513" r="3.28736"/>
+<circle cx="283.955" cy="35.4058" r="2.37042"/>
+<circle cx="49.1657" cy="285.455" r="1.90211"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="170.505" cy="95.474" r="3.71702"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="86.2108" cy="347.726" r="3.55713"/>
+<circle cx="434.957" cy="175.782" r="3.7763"/>
+<circle cx="268.19" cy="449.261" r="1.57826"/>
+<circle cx="48.3231" cy="301.426" r="2.79034"/>
+<circle cx="39.8263" cy="317.189" r="2.92921"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="380.526" cy="434.154" r="3.04889"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="175.577" cy="426.747" r="2.89418"/>
+<circle cx="472.628" cy="260.745" r="2.7842"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="451.932" cy="215.137" r="3.43072"/>
+<circle cx="84.1476" cy="327.905" r="3.36907"/>
+<circle cx="185.517" cy="454.192" r="1.44569"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="63.3144" cy="298.801" r="4.0513"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="57.3144" cy="306.301" r="1.8261"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="321.726" cy="73.6443" r="1.65961"/>
+<circle cx="290.074" cy="62.8053" r="2.90104"/>
+<circle cx="68.0246" cy="137.166" r="1.48919"/>
+<circle cx="56.7334" cy="276.638" r="2.51099"/>
+<circle cx="419.361" cy="133.246" r="3.56858"/>
+<circle cx="54.7247" cy="141.225" r="3.66445"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="452.659" cy="297.255" r="1.69296"/>
+<circle cx="336.661" cy="48.7487" r="3.96083"/>
+<circle cx="104.082" cy="112.004" r="1.9369"/>
+<circle cx="218.817" cy="81.2448" r="3.0995"/>
+<circle cx="411.996" cy="166.307" r="1.76301"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="77.8407" cy="329.838" r="4.13683"/>
+<circle cx="465.082" cy="254.299" r="2.5879"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="85.2339" cy="405.532" r="3.51917"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="424.342" cy="373.032" r="2.42429"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="420.047" cy="101.775" r="3.79786"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="402.919" cy="361.296" r="2.38144"/>
+<circle cx="425.844" cy="324.382" r="3.30901"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="75.0195" cy="404.754" r="1.6344"/>
+<circle cx="390.611" cy="114.885" r="1.57621"/>
+<circle cx="470.277" cy="202.186" r="3.64039"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="428.246" cy="400.604" r="1.95448"/>
+<circle cx="53.544" cy="240.535" r="3.58948"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="130.232" cy="399.458" r="1.91963"/>
+<circle cx="459.836" cy="263.251" r="4.16746"/>
+<circle cx="396.328" cy="130.306" r="3.1182"/>
+<circle cx="262.492" cy="50.1718" r="2.13296"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="155.677" cy="107.164" r="2.5533"/>
+<circle cx="216.592" cy="37.3005" r="3.1558"/>
+<circle cx="488.683" cy="260.03" r="2.4643"/>
+<circle cx="213.973" cy="74.1726" r="2.37929"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="410.051" cy="151.646" r="3.15125"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="485.05" cy="200.286" r="3.51619"/>
+<circle cx="118.455" cy="142.164" r="2.35074"/>
+<circle cx="158.451" cy="51.6554" r="1.76186"/>
+<circle cx="84.0016" cy="383.17" r="1.77737"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="479.932" cy="222.387" r="2.58434"/>
+<circle cx="324.465" cy="451.698" r="3.17918"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="211.028" cy="470.51" r="4.30159"/>
+<circle cx="443.894" cy="358.558" r="2.61975"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="144.396" cy="415.984" r="3.89897"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="225.891" cy="457.362" r="1.49207"/>
+<circle cx="88.3624" cy="177.11" r="2.48518"/>
+<circle cx="97.392" cy="82.1632" r="1.81229"/>
+<circle cx="225.936" cy="41.0528" r="2.92872"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="33.9779" cy="286.687" r="2.53606"/>
+<circle cx="105.41" cy="356.925" r="2.63614"/>
+<circle cx="88.8176" cy="416.559" r="2.56745"/>
+<circle cx="83.5083" cy="316.61" r="2.50659"/>
+<circle cx="358.822" cy="427.763" r="3.41446"/>
+<circle cx="320.838" cy="422.019" r="1.88719"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="202.74" cy="40.346" r="3.30608"/>
+<circle cx="251.838" cy="60.7553" r="2.62969"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="417.526" cy="389.082" r="1.73683"/>
+<circle cx="131.01" cy="99.8227" r="4.12238"/>
+<circle cx="233.085" cy="62.7213" r="2.90135"/>
+<circle cx="404.455" cy="399.441" r="3.37174"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="140.695" cy="408.003" r="2.03773"/>
+<circle cx="453.074" cy="311.612" r="3.73207"/>
+<circle cx="159.994" cy="68.9617" r="3.78564"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="395.931" cy="93.4207" r="1.49975"/>
+<circle cx="455.861" cy="199.509" r="3.47881"/>
+<circle cx="96.2057" cy="336.086" r="1.50373"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="58.6359" cy="241.153" r="1.65307"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="264.725" cy="467.877" r="3.86935"/>
+<circle cx="287.553" cy="34.6834" r="1.64151"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="484.268" cy="255.333" r="1.50748"/>
+<circle cx="39.3859" cy="269.235" r="3.43369"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="441.098" cy="370.171" r="3.47823"/>
+<circle cx="457.614" cy="315.869" r="1.62093"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="345.129" cy="469.682" r="2.31135"/>
+<circle cx="426.575" cy="149.573" r="4.13117"/>
+<circle cx="213.079" cy="55.3455" r="2.80164"/>
+<circle cx="404.961" cy="143.958" r="2.1605"/>
+<circle cx="476.341" cy="212.901" r="1.71873"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="40.8508" cy="192.632" r="2.99117"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="287.577" cy="63.2362" r="1.76108"/>
+<circle cx="84.5206" cy="409.342" r="3.10694"/>
+<circle cx="131.212" cy="396.923" r="3.15898"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="83.4804" cy="118.8" r="4.01294"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="458.418" cy="280.778" r="3.24361"/>
+<circle cx="120.249" cy="104.892" r="3.73269"/>
+<circle cx="208.963" cy="470.891" r="1.55872"/>
+<circle cx="443.973" cy="388.118" r="1.99333"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="466.196" cy="254.058" r="2.78947"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="422.565" cy="104.734" r="2.18215"/>
+<circle cx="85.2362" cy="352.738" r="2.28499"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="105.736" cy="85.7903" r="3.69737"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="234.95" cy="42.5816" r="3.51721"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="437.38" cy="274.108" r="1.83312"/>
+<circle cx="444.099" cy="318.919" r="3.14769"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="455.457" cy="248.051" r="3.12548"/>
+<circle cx="411.378" cy="137.482" r="1.76952"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="469.904" cy="296.91" r="2.83984"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="54.1905" cy="370.22" r="2.97867"/>
+<circle cx="41.8586" cy="328.096" r="2.24858"/>
+<circle cx="435.501" cy="404.313" r="4.07904"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="418.908" cy="88.4921" r="2.19569"/>
+<circle cx="363.954" cy="437.981" r="2.00527"/>
+<circle cx="94.295" cy="389.007" r="2.33994"/>
+<circle cx="365.945" cy="103.837" r="3.92367"/>
+<circle cx="140.455" cy="394.383" r="2.02688"/>
+<circle cx="349.341" cy="443.085" r="3.66203"/>
+<circle cx="174.599" cy="436.507" r="2.06991"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="146.334" cy="449.396" r="3.2056"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="461.341" cy="270.307" r="2.52583"/>
+<circle cx="246.337" cy="59.2316" r="4.12903"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="412.34" cy="408.901" r="3.48596"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="74.3303" cy="301.005" r="3.88155"/>
+<circle cx="423.79" cy="420.996" r="3.28886"/>
+<circle cx="232.534" cy="47.751" r="2.00899"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="157.238" cy="418.651" r="1.80215"/>
+<circle cx="260.748" cy="446.091" r="2.02934"/>
+<circle cx="62.9652" cy="218.118" r="3.40588"/>
+<circle cx="344.445" cy="55.1983" r="1.62693"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="88.3473" cy="348.684" r="2.99169"/>
+<circle cx="110.081" cy="129.988" r="1.64336"/>
+<circle cx="448.943" cy="186.89" r="2.22774"/>
+<circle cx="64.1907" cy="350.963" r="3.60621"/>
+<circle cx="210.633" cy="461.198" r="2.36564"/>
+<circle cx="310.379" cy="83.2187" r="2.09362"/>
+<circle cx="173.213" cy="46.4519" r="2.90531"/>
+<circle cx="160.918" cy="436.047" r="4.04636"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="175.018" cy="451.554" r="1.79493"/>
+<circle cx="99.2013" cy="103.479" r="1.56352"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="359.532" cy="434.314" r="1.713"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="460.892" cy="147.279" r="3.52323"/>
+<circle cx="96.2" cy="358.392" r="2.13326"/>
+<circle cx="429.213" cy="154.527" r="3.66992"/>
+<circle cx="444.071" cy="114.962" r="1.56658"/>
+<circle cx="461.968" cy="251.413" r="4.24156"/>
+<circle cx="252.036" cy="448.477" r="2.86086"/>
+<circle cx="385.816" cy="418.678" r="4.23658"/>
+<circle cx="54.6914" cy="188.276" r="1.78643"/>
+<circle cx="272.42" cy="453.262" r="1.57935"/>
+<circle cx="443.911" cy="350.533" r="3.15932"/>
+</g>
+
+<g fill="#db7373" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="58.904" cy="382.715" r="3.41027"/>
+</g>
+
+<g fill="#40081a" fill-opacity="0.349996" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="347.417" cy="419.73" r="4.13409"/>
+<circle cx="73.7702" cy="378.159" r="3.24979"/>
+</g>
+
+<g fill="#470a21" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<circle cx="256" cy="256" r="173.261"/>
+</g>
+
+<g fill="url(#gradient3)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M215.693,238.914 L120.963,206.284 L119.737,205.825 L118.543,205.302 L117.383,204.718 L116.26,204.075 L115.176,203.374 L114.133,202.619 L113.132,201.811 L112.176,200.952 L111.268,200.044 L110.407,199.089 L109.598,198.09 L108.842,197.047 L108.141,195.964 L107.497,194.843 L106.912,193.685 L106.388,192.492 L105.928,191.267 L105.533,190.012 L105.205,188.728 L104.946,187.418 L104.759,186.084 L104.645,184.727 L104.606,183.35 L104.635,182.16 L104.72,180.985 L104.86,179.826 L105.055,178.684 L105.301,177.561 L105.599,176.458 L105.947,175.377 L106.343,174.319 L106.787,173.284 L107.276,172.275 L107.81,171.293 L107.813,171.296 L108.452,170.191 L109.103,169.088 L109.765,167.986 L110.439,166.886 L111.124,165.787 L111.82,164.691 L112.527,163.597 L113.244,162.506 L113.972,161.417 L114.71,160.332 L115.458,159.25 L116.216,158.171 L116.983,157.096 L117.76,156.024 L118.547,154.957 L119.342,153.895 L120.146,152.837 L120.959,151.784 L121.78,150.735 L122.609,149.693 L123.447,148.655 L124.292,147.624 L125.145,146.598 L126.005,145.578 L126.873,144.565 L127.748,143.559 L128.629,142.559 L129.517,141.566 L130.412,140.581 L131.313,139.603 L132.22,138.633 L133.133,137.671 L134.051,136.718 L134.975,135.772 L135.904,134.836 L136.839,133.908 L137.778,132.989 L138.722,132.08 L139.67,131.18 L140.622,130.29 L141.579,129.41 L142.54,128.54 L143.504,127.68 L144.472,126.832 L145.442,125.994 L146.417,125.167 L147.393,124.352 L148.373,123.548 L149.203,122.878 L150.04,122.212 L150.885,121.549 L151.738,120.889 L152.599,120.233 L153.466,119.581 L154.341,118.932 L155.224,118.287 L156.113,117.647 L157.008,117.01 L157.911,116.378 L158.82,115.749 L159.735,115.125 L160.656,114.506 L161.584,113.891 L162.517,113.281 L163.456,112.675 L164.4,112.074 L165.35,111.479 L166.305,110.888 L167.265,110.302 L168.23,109.722 L169.2,109.147 L170.174,108.577 L171.153,108.013 L172.137,107.454 L173.124,106.901 L174.115,106.354 L175.111,105.813 L176.11,105.278 L177.112,104.748 L178.118,104.225 L179.127,103.709 L180.14,103.198 L181.155,102.694 L182.173,102.197 L183.193,101.706 L184.217,101.222 L185.242,100.745 L186.27,100.275 L187.299,99.8116 L188.331,99.3555 L189.364,98.9067 L190.399,98.4653 L191.435,98.0312 L192.472,97.6047 L193.511,97.1857 L194.551,96.7745 L195.591,96.3711 L196.632,95.9755 L197.673,95.588 L198.715,95.2086 L199.757,94.8373 L200.799,94.4743 L201.841,94.1197 L202.883,93.7736 L203.924,93.4361 L205.101,93.0895 L206.302,92.8026 L207.527,92.5768 L208.772,92.4136 L210.037,92.3146 L211.319,92.2813 L212.98,92.3372 L214.611,92.5027 L216.208,92.7741 L217.768,93.1477 L218.452,93.3605 L218.463,93.357 L218.529,93.3773 L218.775,93.4609 L219.287,93.6201 L219.615,93.7463 L219.862,93.8305 L220.384,94.0422 L220.761,94.1875 L220.906,94.2544 L221.16,94.3575 L222.419,94.9559 L223.636,95.6231 L224.81,96.3566 L225.938,97.1538 L227.017,98.0123 L228.044,98.9294 L229.018,99.9027 L229.936,100.93 L230.794,102.008 L231.592,103.134 L232.325,104.307 L232.993,105.523 L233.591,106.78 L234.118,108.076 L234.571,109.407 L234.948,110.772 L235.246,112.168 L235.462,113.592 L235.461,113.602 L247.668,213.024 L247.804,214.489 L247.849,215.98 L247.793,217.641 L247.628,219.272 L247.356,220.869 L246.983,222.429 L246.51,223.948 L245.943,225.422 L245.284,226.848 L244.537,228.223 L243.707,229.542 L242.795,230.803 L241.807,232.001 L240.745,233.132 L239.613,234.194 L238.415,235.183 L237.155,236.094 L235.835,236.925 L234.461,237.672 L233.034,238.331 L231.56,238.898 L230.041,239.37 L228.481,239.744 L226.884,240.015 L225.253,240.181 L223.593,240.237 L222.413,240.209 L221.247,240.125 L220.098,239.987 L218.966,239.796 L217.852,239.554 L216.759,239.261 L215.687,238.919 L215.693,238.914 Z "/>
+</g>
+
+<g fill="url(#gradient4)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M95.2748,234.596 L95.2851,234.494 L95.4241,233.676 L95.5114,233.139 L95.5278,233.066 L95.5565,232.897 L95.7261,232.189 L95.8374,231.697 L95.8746,231.569 L95.9301,231.337 L96.1202,230.726 L96.2476,230.289 L96.3125,230.108 L96.4025,229.819 L96.6029,229.298 L96.7392,228.918 L96.8384,228.686 L96.9699,228.344 L97.1712,227.908 L97.3092,227.586 L97.4497,227.305 L97.6287,226.918 L97.822,226.562 L97.9549,226.297 L98.1436,225.97 L98.3754,225.543 L98.5525,225.262 L98.6735,225.052 L98.9177,224.682 L99.2063,224.224 L99.3595,224.012 L99.4622,223.856 L99.7706,223.443 L100.118,222.963 L100.24,222.815 L100.318,222.711 L100.704,222.253 L101.106,221.766 L101.192,221.675 L101.239,221.619 L101.737,221.094 L102.168,220.634 L102.211,220.594 L102.221,220.584 L103.262,219.607 L103.268,219.602 L103.3,219.572 L103.708,219.235 L104.358,218.693 L104.42,218.648 L104.498,218.583 L104.937,218.266 L105.509,217.844 L105.631,217.764 L105.758,217.672 L106.187,217.402 L106.709,217.062 L106.897,216.955 L107.077,216.841 L107.481,216.622 L107.957,216.35 L108.215,216.223 L108.452,216.094 L108.822,215.923 L109.25,215.712 L109.584,215.572 L109.878,215.435 L110.209,215.308 L110.586,215.15 L111,215.004 L111.353,214.868 L111.638,214.779 L111.96,214.666 L112.463,214.523 L112.872,214.396 L113.107,214.339 L113.37,214.264 L113.974,214.132 L114.432,214.022 L114.613,213.991 L114.814,213.947 L115.54,213.834 L116.029,213.751 L116.153,213.738 L116.289,213.717 L117.2,213.632 L117.659,213.585 L117.723,213.583 L117.792,213.577 L119.32,213.529 L120.533,213.559 L120.81,213.579 L120.981,213.585 L121.228,213.61 L121.725,213.647 L121.737,213.662 L122.612,213.751 L124.209,214.022 L125.769,214.396 L127.287,214.868 L127.767,215.053 L205.448,241.8 L206.675,242.26 L207.869,242.783 L209.028,243.367 L210.151,244.01 L211.236,244.71 L212.279,245.465 L213.28,246.273 L214.236,247.132 L215.145,248.04 L216.005,248.995 L216.814,249.995 L217.571,251.037 L218.272,252.12 L218.916,253.242 L219.501,254.4 L220.025,255.592 L220.485,256.818 L220.881,258.073 L221.209,259.357 L221.468,260.667 L221.655,262.002 L221.769,263.358 L221.807,264.735 L221.775,266.001 L221.679,267.249 L221.52,268.48 L221.301,269.69 L221.023,270.878 L220.687,272.044 L220.295,273.184 L219.849,274.298 L219.351,275.384 L218.801,276.441 L218.202,277.466 L217.555,278.459 L216.861,279.417 L216.123,280.339 L215.341,281.224 L214.518,282.07 L213.655,282.875 L212.754,283.637 L211.816,284.356 L211.814,284.355 L144.871,333.021 L143.931,333.672 L142.96,334.28 L141.959,334.842 L140.929,335.358 L139.872,335.825 L138.789,336.243 L137.682,336.61 L136.551,336.924 L135.4,337.184 L134.228,337.389 L133.038,337.537 L131.831,337.627 L130.608,337.657 L129.282,337.622 L127.975,337.516 L126.688,337.342 L125.424,337.102 L124.183,336.797 L122.969,336.43 L121.782,336.002 L120.625,335.514 L119.499,334.97 L118.407,334.37 L117.349,333.717 L116.329,333.011 L115.347,332.256 L114.406,331.453 L113.507,330.604 L112.652,329.71 L111.844,328.774 L111.083,327.797 L110.372,326.781 L109.713,325.728 L109.107,324.64 L108.556,323.518 L108.559,323.511 L108.131,322.568 L107.707,321.617 L107.29,320.66 L106.877,319.695 L106.47,318.725 L106.068,317.747 L105.672,316.763 L105.281,315.773 L104.896,314.777 L104.517,313.775 L104.143,312.767 L103.775,311.753 L103.413,310.734 L103.056,309.71 L102.706,308.68 L102.361,307.645 L102.023,306.606 L101.69,305.561 L101.364,304.512 L101.043,303.459 L100.729,302.401 L100.422,301.339 L100.12,300.273 L99.8254,299.203 L99.5369,298.129 L99.2548,297.052 L98.9793,295.971 L98.7104,294.887 L98.4481,293.799 L98.1926,292.709 L97.9438,291.616 L97.7018,290.52 L97.4667,289.422 L97.2385,288.321 L97.0172,287.218 L96.803,286.112 L96.5959,285.005 L96.3959,283.896 L96.2031,282.785 L96.0176,281.673 L95.8393,280.559 L95.6684,279.444 L95.5049,278.328 L95.3488,277.211 L95.2003,276.093 L95.0593,274.975 L94.9259,273.856 L94.8002,272.736 L94.6822,271.617 L94.572,270.497 L94.4696,269.377 L94.3751,268.258 L94.2885,267.139 L94.21,266.02 L94.1394,264.902 L94.077,263.785 L94.0227,262.669 L93.9767,261.554 L93.9388,260.44 L93.9093,259.328 L93.8882,258.217 L93.8755,257.107 L93.8712,256 L93.8747,254.998 L93.885,253.987 L93.9022,252.97 L93.926,251.946 L93.9565,250.917 L93.9934,249.884 L94.0369,248.848 L94.0866,247.81 L94.1427,246.771 L94.2049,245.732 L94.2732,244.695 L94.3475,243.659 L94.4278,242.627 L94.5139,241.599 L94.6057,240.576 L94.7031,239.56 L94.8062,238.552 L94.9147,237.551 L95.0286,236.561 L95.1478,235.58 L95.2722,234.612 L95.2748,234.596 Z "/>
+</g>
+
+<g fill="url(#gradient5)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M258.637,302.353 L270.196,396.557 L270.331,398.021 L270.377,399.511 L270.321,401.172 L270.155,402.803 L269.884,404.4 L269.51,405.96 L269.038,407.479 L268.47,408.953 L267.812,410.38 L267.065,411.754 L266.234,413.074 L265.322,414.334 L264.334,415.532 L263.272,416.663 L262.14,417.725 L260.942,418.714 L259.682,419.625 L258.363,420.456 L256.988,421.203 L255.562,421.862 L254.087,422.429 L252.568,422.902 L251.009,423.275 L249.412,423.547 L247.781,423.712 L246.12,423.768 L245.293,423.754 L244.477,423.713 L244.478,423.712 L243.465,423.64 L242.45,423.561 L241.434,423.475 L240.415,423.381 L239.396,423.281 L238.375,423.174 L237.353,423.06 L236.33,422.94 L235.306,422.812 L234.282,422.678 L233.257,422.538 L232.231,422.391 L231.206,422.237 L230.18,422.077 L229.155,421.911 L228.13,421.738 L227.105,421.559 L226.081,421.374 L225.057,421.182 L224.035,420.985 L223.013,420.781 L221.993,420.571 L220.973,420.356 L219.956,420.134 L218.94,419.907 L217.925,419.674 L216.913,419.435 L215.902,419.19 L214.894,418.94 L213.888,418.684 L212.885,418.422 L211.885,418.156 L210.887,417.883 L209.892,417.605 L208.9,417.322 L207.912,417.034 L206.927,416.74 L205.945,416.442 L204.968,416.138 L203.994,415.829 L203.024,415.515 L202.058,415.196 L201.097,414.872 L200.14,414.543 L199.188,414.21 L198.241,413.872 L197.298,413.529 L196.361,413.181 L195.429,412.829 L194.502,412.472 L193.581,412.111 L192.665,411.745 L191.755,411.375 L190.852,411.001 L189.954,410.622 L189.063,410.24 L188.178,409.852 L187.128,409.384 L186.077,408.906 L185.027,408.417 L183.977,407.92 L182.927,407.412 L181.877,406.896 L180.829,406.37 L179.782,405.835 L178.736,405.291 L177.691,404.739 L176.648,404.178 L175.607,403.609 L174.568,403.031 L173.532,402.445 L172.498,401.852 L171.467,401.25 L170.439,400.641 L169.414,400.024 L168.392,399.401 L167.374,398.77 L166.36,398.131 L165.35,397.487 L164.344,396.835 L163.343,396.177 L162.346,395.512 L161.354,394.841 L160.368,394.164 L159.387,393.481 L158.411,392.792 L157.441,392.098 L156.477,391.398 L155.519,390.693 L154.568,389.983 L153.623,389.267 L152.685,388.547 L151.755,387.822 L150.831,387.093 L149.915,386.359 L149.007,385.62 L148.106,384.878 L147.214,384.132 L146.33,383.382 L145.454,382.628 L144.588,381.871 L143.73,381.11 L142.881,380.347 L142.042,379.58 L141.213,378.81 L140.396,378.01 L139.618,377.172 L138.88,376.298 L138.183,375.39 L137.528,374.448 L136.917,373.475 L136.352,372.472 L135.834,371.439 L135.365,370.38 L134.945,369.294 L134.576,368.184 L134.26,367.051 L133.999,365.897 L133.793,364.722 L133.644,363.529 L133.553,362.318 L133.523,361.092 L133.553,359.878 L133.641,358.679 L133.788,357.496 L133.99,356.332 L134.246,355.188 L134.556,354.065 L134.918,352.964 L135.33,351.888 L135.791,350.836 L136.3,349.811 L136.855,348.815 L137.455,347.847 L138.098,346.911 L138.783,346.007 L138.784,346.008 L138.784,346.007 L140.224,344.354 L141.806,342.837 L143.52,341.467 L143.522,341.468 L220.303,285.683 L221.243,285.032 L222.214,284.425 L223.215,283.863 L224.244,283.348 L225.301,282.881 L226.383,282.464 L227.49,282.097 L228.62,281.783 L229.771,281.523 L230.942,281.319 L232.132,281.171 L233.338,281.081 L234.561,281.051 L236.221,281.107 L237.852,281.272 L239.449,281.543 L241.009,281.917 L242.528,282.389 L244.002,282.957 L245.429,283.616 L246.803,284.362 L248.123,285.193 L249.383,286.105 L250.581,287.093 L251.713,288.155 L252.774,289.287 L253.763,290.485 L254.675,291.745 L255.505,293.064 L256.252,294.439 L256.911,295.865 L257.478,297.34 L257.951,298.859 L258.324,300.419 L258.596,302.016 L258.63,302.357 L258.637,302.353 Z "/>
+</g>
+
+<g fill="url(#gradient6)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M299.844,280.758 L299.91,280.79 L300.078,280.868 L300.157,280.91 L373.012,316.446 L374.147,317.038 L375.247,317.687 L376.307,318.391 L377.328,319.149 L378.307,319.957 L379.242,320.815 L380.13,321.72 L380.971,322.67 L381.762,323.664 L382.5,324.699 L383.185,325.773 L383.814,326.885 L384.385,328.032 L384.896,329.213 L385.346,330.425 L385.731,331.666 L386.051,332.935 L386.304,334.23 L386.486,335.548 L386.597,336.888 L386.635,338.247 L386.606,339.439 L386.521,340.616 L386.38,341.777 L386.185,342.921 L385.938,344.045 L385.639,345.149 L385.29,346.232 L384.892,347.292 L384.447,348.328 L383.956,349.338 L383.421,350.322 L382.842,351.277 L382.22,352.203 L381.558,353.098 L381.558,353.098 L380.724,354.163 L379.875,355.228 L379.01,356.291 L378.131,357.351 L377.238,358.409 L376.331,359.464 L375.41,360.515 L374.477,361.562 L373.532,362.605 L372.574,363.642 L371.606,364.675 L370.626,365.701 L369.636,366.721 L368.636,367.734 L367.627,368.74 L366.609,369.738 L365.582,370.727 L364.547,371.708 L363.505,372.68 L362.455,373.643 L361.4,374.595 L360.338,375.536 L359.27,376.467 L358.197,377.386 L357.12,378.293 L356.039,379.188 L354.954,380.07 L353.865,380.938 L352.774,381.793 L351.681,382.633 L350.586,383.459 L349.49,384.269 L348.393,385.064 L347.527,385.68 L346.651,386.292 L345.766,386.902 L344.871,387.508 L343.968,388.11 L343.057,388.709 L342.137,389.303 L341.209,389.894 L340.274,390.48 L339.331,391.061 L338.381,391.638 L337.424,392.211 L336.461,392.778 L335.492,393.34 L334.516,393.897 L333.535,394.448 L332.549,394.994 L331.557,395.534 L330.561,396.068 L329.56,396.597 L328.555,397.118 L327.546,397.634 L326.534,398.143 L325.517,398.645 L324.498,399.14 L323.476,399.628 L322.452,400.109 L321.425,400.583 L320.396,401.049 L319.366,401.507 L318.334,401.957 L317.302,402.4 L316.268,402.834 L315.234,403.259 L314.199,403.677 L313.165,404.085 L312.131,404.485 L311.097,404.876 L310.065,405.257 L309.034,405.63 L308.004,405.992 L306.976,406.345 L305.919,406.679 L304.842,406.965 L303.745,407.201 L302.63,407.387 L301.498,407.521 L300.35,407.602 L299.189,407.629 L297.887,407.595 L296.604,407.493 L295.34,407.326 L294.099,407.094 L292.881,406.801 L291.688,406.447 L291.694,406.442 L291.636,406.423 L290.328,405.957 L289.057,405.42 L287.823,404.814 L286.631,404.141 L285.481,403.404 L284.377,402.606 L283.321,401.748 L282.315,400.834 L281.362,399.865 L280.465,398.844 L279.624,397.774 L278.844,396.657 L278.127,395.496 L277.474,394.292 L276.888,393.048 L276.372,391.767 L275.928,390.452 L275.559,389.104 L275.267,387.726 L275.054,386.32 L275.055,386.31 L265.135,305.515 L264.999,304.05 L264.954,302.559 L265.01,300.898 L265.175,299.268 L265.447,297.671 L265.82,296.111 L266.293,294.592 L266.86,293.117 L267.519,291.691 L268.265,290.316 L269.096,288.997 L270.008,287.737 L270.996,286.539 L272.058,285.407 L273.19,284.345 L274.388,283.357 L275.648,282.445 L276.968,281.614 L278.342,280.868 L279.769,280.209 L281.243,279.641 L282.762,279.169 L284.322,278.795 L285.919,278.524 L287.549,278.358 L289.21,278.303 L290.871,278.358 L292.502,278.524 L294.099,278.795 L295.659,279.169 L297.178,279.641 L298.652,280.209 L299.844,280.759 L299.844,280.758 Z "/>
+</g>
+
+<g fill="url(#gradient7)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M420.712,300.808 L420.664,301.011 L420.343,302.043 L420.275,302.265 L420.263,302.298 L420.191,302.53 L419.918,303.241 L419.801,303.56 L419.748,303.681 L419.624,304.004 L419.377,304.539 L419.255,304.82 L419.153,305.024 L418.965,305.43 L418.75,305.826 L418.642,306.041 L418.48,306.323 L418.218,306.805 L418.044,307.081 L417.963,307.222 L417.734,307.574 L417.387,308.124 L417.264,308.295 L417.222,308.36 L416.919,308.772 L416.476,309.385 L415.947,310.026 L415.558,310.497 L415.552,310.504 L415.487,310.583 L415.061,311.037 L414.642,311.492 L414.556,311.575 L414.426,311.714 L414.047,312.07 L413.671,312.434 L413.495,312.587 L413.294,312.776 L412.97,313.044 L412.65,313.322 L412.371,313.538 L412.096,313.765 L411.835,313.953 L411.58,314.152 L411.178,314.428 L410.836,314.676 L410.646,314.796 L410.463,314.922 L409.901,315.265 L409.516,315.507 L409.405,315.568 L409.303,315.63 L408.403,316.112 L408.142,316.254 L408.115,316.266 L408.101,316.274 L406.859,316.851 L406.787,316.88 L406.715,316.913 L406.346,317.055 L405.581,317.359 L405.399,317.419 L405.241,317.48 L404.854,317.601 L404.269,317.795 L403.967,317.876 L403.722,317.952 L403.381,318.034 L402.924,318.157 L402.491,318.247 L402.162,318.326 L401.891,318.372 L401.55,318.443 L400.961,318.53 L400.565,318.597 L400.376,318.617 L400.149,318.65 L399.341,318.722 L398.934,318.763 L398.837,318.766 L398.722,318.776 L397.274,318.819 L396.043,318.788 L395.782,318.769 L395.613,318.763 L395.351,318.736 L394.829,318.697 L394.246,318.624 L393.982,318.597 L393.842,318.574 L393.632,318.547 L392.454,318.34 L392.414,318.331 L392.385,318.326 L392.249,318.293 L391.296,318.077 L391.006,317.996 L390.825,317.952 L390.593,317.88 L390.16,317.759 L389.55,317.556 L389.306,317.48 L389.201,317.44 L389.046,317.388 L387.958,316.966 L387.885,316.933 L387.832,316.913 L387.645,316.827 L386.896,316.493 L386.59,316.339 L386.406,316.254 L386.209,316.147 L385.861,315.972 L385.759,315.914 L295.097,271.695 L293.962,271.104 L292.863,270.454 L291.802,269.75 L290.781,268.993 L289.802,268.184 L288.867,267.326 L287.979,266.421 L287.138,265.471 L286.347,264.477 L285.609,263.442 L284.924,262.368 L284.295,261.256 L283.724,260.109 L283.213,258.929 L282.763,257.716 L282.377,256.475 L282.057,255.206 L281.805,253.911 L281.622,252.593 L281.511,251.253 L281.474,249.894 L281.505,248.658 L281.597,247.439 L281.748,246.237 L281.957,245.054 L282.222,243.891 L282.543,242.751 L282.917,241.634 L283.343,240.541 L283.819,239.476 L284.344,238.438 L284.917,237.429 L285.537,236.451 L286.2,235.505 L286.907,234.594 L287.656,233.717 L288.444,232.877 L289.271,232.076 L290.136,231.314 L290.136,231.314 L368.149,165.838 L369.008,165.148 L369.899,164.498 L370.819,163.887 L371.769,163.318 L372.746,162.792 L373.749,162.309 L374.777,161.872 L375.828,161.482 L376.902,161.139 L377.997,160.846 L379.112,160.603 L380.245,160.412 L381.396,160.273 L382.562,160.189 L383.743,160.161 L385.403,160.217 L387.034,160.383 L388.631,160.654 L390.191,161.028 L391.71,161.5 L393.184,162.067 L394.611,162.726 L395.985,163.473 L397.305,164.304 L398.565,165.215 L399.763,166.204 L400.895,167.266 L401.956,168.397 L402.945,169.595 L403.856,170.856 L404.687,172.175 L404.888,172.544 L404.892,172.541 L405.523,173.675 L406.146,174.82 L406.762,175.975 L407.37,177.139 L407.971,178.312 L408.563,179.495 L409.148,180.686 L409.725,181.887 L410.293,183.096 L410.854,184.314 L411.406,185.539 L411.95,186.773 L412.486,188.015 L413.013,189.264 L413.531,190.521 L414.041,191.786 L414.542,193.057 L415.034,194.335 L415.518,195.621 L415.992,196.912 L416.458,198.21 L416.914,199.515 L417.361,200.825 L417.798,202.141 L418.226,203.463 L418.645,204.79 L419.054,206.122 L419.453,207.459 L419.843,208.802 L420.222,210.149 L420.592,211.5 L420.952,212.856 L421.301,214.216 L421.641,215.58 L421.97,216.948 L422.289,218.319 L422.597,219.693 L422.895,221.071 L423.182,222.452 L423.458,223.835 L423.724,225.222 L423.979,226.61 L424.222,228.001 L424.455,229.394 L424.677,230.789 L424.887,232.185 L425.086,233.583 L425.274,234.982 L425.45,236.383 L425.614,237.784 L425.767,239.186 L425.908,240.589 L426.038,241.992 L426.155,243.395 L426.261,244.798 L426.354,246.201 L426.435,247.603 L426.504,249.005 L426.561,250.407 L426.605,251.807 L426.636,253.206 L426.656,254.604 L426.662,256 L426.659,256.981 L426.649,257.964 L426.634,258.951 L426.612,259.94 L426.584,260.931 L426.55,261.924 L426.51,262.919 L426.463,263.916 L426.411,264.915 L426.353,265.914 L426.289,266.915 L426.219,267.916 L426.144,268.918 L426.063,269.921 L425.975,270.923 L425.883,271.926 L425.784,272.928 L425.68,273.93 L425.571,274.932 L425.456,275.932 L425.336,276.931 L425.21,277.929 L425.078,278.926 L424.942,279.92 L424.8,280.913 L424.653,281.904 L424.501,282.892 L424.343,283.878 L424.181,284.86 L424.013,285.84 L423.841,286.817 L423.663,287.79 L423.48,288.76 L423.293,289.726 L423.101,290.687 L422.904,291.645 L422.702,292.597 L422.495,293.546 L422.284,294.489 L422.068,295.427 L421.848,296.36 L421.623,297.287 L421.393,298.208 L421.159,299.124 L420.921,300.033 L420.712,300.808 Z "/>
+</g>
+
+<g fill="url(#gradient8)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M252.884,205.744 L242.335,119.757 L242.199,118.293 L242.154,116.803 L242.21,115.143 L242.375,113.512 L242.647,111.915 L243.021,110.355 L243.493,108.836 L244.06,107.362 L244.719,105.935 L245.466,104.561 L246.297,103.241 L247.208,101.981 L248.197,100.783 L249.259,99.6515 L250.39,98.5896 L251.588,97.6011 L252.849,96.6896 L254.168,95.8587 L255.542,95.112 L256.969,94.4532 L258.443,93.8858 L259.962,93.4134 L261.522,93.0398 L263.119,92.7684 L264.75,92.6029 L266.411,92.547 L268.071,92.6029 L268.195,92.6154 L268.194,92.6126 L269.201,92.6904 L270.21,92.7755 L271.222,92.8677 L272.236,92.9671 L273.251,93.0735 L274.269,93.187 L275.287,93.3074 L276.308,93.4346 L277.329,93.5687 L278.351,93.7095 L279.373,93.8571 L280.397,94.0112 L281.42,94.1719 L282.443,94.3391 L283.467,94.5128 L284.49,94.6928 L285.512,94.8791 L286.534,95.0716 L287.554,95.2704 L288.574,95.4752 L289.592,95.6861 L290.609,95.903 L291.624,96.1259 L292.636,96.3546 L293.647,96.5891 L294.655,96.8293 L295.661,97.0752 L296.664,97.3267 L297.664,97.5837 L298.661,97.8463 L299.654,98.1142 L300.644,98.3875 L301.63,98.6661 L302.611,98.95 L303.589,99.239 L304.562,99.5331 L305.531,99.8322 L306.495,100.136 L307.453,100.445 L308.407,100.759 L309.355,101.078 L310.297,101.401 L311.234,101.729 L312.165,102.062 L313.089,102.399 L314.007,102.741 L314.918,103.087 L315.822,103.437 L316.719,103.792 L317.766,104.214 L318.814,104.647 L319.862,105.09 L320.912,105.542 L321.962,106.004 L323.011,106.475 L324.061,106.956 L325.11,107.446 L326.159,107.944 L327.206,108.451 L328.253,108.967 L329.297,109.491 L330.34,110.023 L331.381,110.563 L332.419,111.11 L333.454,111.666 L334.487,112.229 L335.516,112.799 L336.542,113.376 L337.564,113.96 L338.581,114.551 L339.595,115.148 L340.604,115.751 L341.607,116.361 L342.606,116.977 L343.599,117.599 L344.586,118.226 L345.567,118.858 L346.542,119.496 L347.51,120.14 L348.472,120.788 L349.426,121.44 L350.372,122.098 L351.311,122.759 L352.242,123.425 L353.165,124.095 L354.079,124.769 L354.984,125.446 L355.88,126.127 L356.766,126.812 L357.643,127.499 L358.509,128.19 L359.412,128.952 L360.277,129.757 L361.102,130.603 L361.884,131.488 L362.624,132.411 L363.319,133.369 L363.967,134.363 L364.568,135.389 L365.118,136.446 L365.618,137.533 L366.065,138.648 L366.457,139.789 L366.793,140.955 L367.072,142.145 L367.292,143.356 L367.45,144.587 L367.547,145.837 L367.579,147.104 L367.55,148.307 L367.463,149.495 L367.32,150.666 L367.121,151.819 L366.869,152.953 L366.565,154.067 L366.21,155.158 L365.805,156.227 L365.352,157.27 L364.853,158.288 L364.308,159.278 L363.719,160.239 L363.087,161.17 L362.414,162.069 L361.7,162.936 L361.7,162.936 L361.697,162.94 L360.36,164.371 L358.912,165.689 L358.911,165.689 L292.552,221.371 L291.693,222.061 L290.802,222.711 L289.881,223.322 L288.932,223.89 L287.955,224.417 L286.952,224.899 L285.924,225.336 L284.873,225.726 L283.799,226.069 L282.704,226.362 L281.59,226.605 L280.457,226.796 L279.307,226.934 L278.141,227.018 L276.96,227.046 L275.422,226.998 L273.91,226.856 L272.426,226.623 L270.974,226.302 L269.555,225.895 L268.174,225.406 L266.832,224.837 L265.533,224.191 L264.279,223.472 L263.074,222.681 L261.92,221.822 L260.82,220.898 L259.777,219.911 L258.794,218.865 L257.873,217.762 L257.018,216.605 L256.232,215.397 L255.517,214.141 L254.876,212.84 L254.312,211.496 L253.828,210.112 L253.426,208.692 L253.11,207.239 L252.883,205.754 L252.884,205.744 Z "/>
+</g>
+
+<g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans Serif" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+</g>
+</svg>
