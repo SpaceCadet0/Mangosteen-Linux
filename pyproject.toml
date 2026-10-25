@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mangosteen"
+version = "0.1.0"
+description = "Zero-click file converter and toolbox for Linux"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Igor Rusakov (SpaceCadet)" }]
+dependencies = [
+    "PySide6-Essentials>=6.6",
+    "PySide6-Addons>=6.6",
+    "Pillow>=10.0",
+    "pillow-heif>=0.16",
+    "numpy>=1.26",
+    "opencv-python-headless>=4.9",
+    "pypdf>=4.0",
+    "pypdfium2>=4.30",
+    "python-xlib>=0.33",
+]
+
+[project.optional-dependencies]
+background = ["onnxruntime>=1.17"]
+dev = ["pytest>=8", "onnxruntime>=1.17"]
+
+[project.scripts]
+mangosteen = "mangosteen.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mangosteen = ["strings/*.json", "assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
