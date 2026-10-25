@@ -42,7 +42,7 @@ class MediaError(Exception):
 
 
 def no_audio(path: str) -> MediaError:
-    return MediaError(loc.fmt("“{0}” has no audio track.", os.path.basename(path)))
+    return MediaError(loc.fmt("“{0}” has no sound track.", os.path.basename(path)))
 
 
 def no_video(path: str) -> MediaError:
