@@ -128,6 +128,51 @@ def render_pages(path: str, target: FileFormat, folder: str, base_name: str, opt
             document.close()
 
 
+def _page_text(textpage) -> str:  # noqa: ANN001
+    """The text of one page, lines rebuilt from where the characters sit.
+
+    pdfium starts a new line whenever two glyphs are a hair off the same baseline, which happens in PDFs written with
+    coarse coordinates (Qt's, at some resolutions): "Report" comes out as "R", "e", "p", "ort". So the line breaks
+    pdfium reports are ignored; a character starts a new line when it is not on the row of the one before it (or
+    jumps back, as a new column does), and a gap between letters becomes a space when the PDF has none."""
+    count = textpage.count_chars()
+    if count <= 0:
+        return ""
+    raw = textpage.get_text_range(0, count)
+    if len(raw) != count:  # characters outside the BMP: the indices no longer line up with the boxes
+        return raw.replace("\r\n", "\n").replace("\r", "\n").strip()
+    lines: list[str] = []
+    line: list[str] = []
+    previous: tuple[float, float, float] | None = None  # bottom and top of the loose box, right edge of the ink
+    spaced = False
+    for index, char in enumerate(raw):
+        if char in "\r\n":
+            continue
+        if char.isspace():
+            spaced = True
+            continue
+        if char in "\ufffe\x00":
+            continue
+        _left, bottom, _right, top = textpage.get_charbox(index, loose=True)  # the font's full height, whatever the glyph
+        ink_left, _b, ink_right, _t = textpage.get_charbox(index)
+        height = max(top - bottom, 0.1)
+        if previous is not None:
+            before_bottom, before_top, before_right = previous
+            before_height = max(before_top - before_bottom, 0.1)
+            em = max(height, before_height)
+            on_row = min(top, before_top) - max(bottom, before_bottom) >= 0.5 * min(height, before_height)
+            if not on_row or ink_left < before_right - 1.5 * em:
+                lines.append("".join(line).strip())
+                line, spaced = [], False
+            elif spaced or ink_left - before_right > 0.18 * em:
+                line.append(" ")
+                spaced = False
+        line.append(char)
+        previous = (bottom, top, ink_right)
+    lines.append("".join(line).strip())
+    return "\n".join(text for text in lines if text)
+
+
 def plain_text(path: str) -> str:
     """The text of every page in reading order, pages separated by a blank line."""
     pages: list[str] = []
@@ -139,7 +184,7 @@ def plain_text(path: str) -> str:
                 try:
                     textpage = page.get_textpage()
                     try:
-                        pages.append(textpage.get_text_range().replace("\r\n", "\n").replace("\r", "\n").strip())
+                        pages.append(_page_text(textpage))
                     finally:
                         textpage.close()
                 finally:

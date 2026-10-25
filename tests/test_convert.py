@@ -293,3 +293,15 @@ def test_media_conversion_can_be_cancelled(work):
     with pytest.raises(Cancelled):
         convert(vid, F.WEBM, cancellation=token)
     assert [n for n in os.listdir(work) if n.startswith(".mangosteen")] == []
+
+
+def test_pdf_text_keeps_words_and_lines_together(work):
+    """pdfium alone splits words in PDFs that Qt writes with coarse coordinates ("R", "e", "p", "ort"); the text of a
+    long document must come back as whole words and lines."""
+    md = work / "long.md"
+    md.write_text("# Report\n\nHello **world**.\n\n- one\n- two\n" + "\nMore text here, in a line.\n" * 80)
+    text = open(convert(convert(str(md), F.PDF), F.TXT), encoding="utf-8").read()
+    lines = text.split("\n")
+    assert lines[:4] == ["Report", "Hello world.", "one", "two"]
+    assert all(len(line) > 3 for line in lines[:-1] if line.strip())
+    assert "More text here, in a line." in text
