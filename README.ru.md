@@ -84,6 +84,9 @@ mangosteen
   `libfuse2t64`) или запустите его с ключом `--appimage-extract-and-run`.
 - **Raspberry Pi.** Проверено на Raspberry Pi 5 с 64-битной Raspberry Pi OS (Bookworm), установка из исходников. Для
   жеста нужен сеанс X11: `sudo raspi-config` → Advanced Options → Wayland → X11.
+- **Обновление.** Значок в трее → **Проверить обновления…** (или кнопка в окне «О Mangosteen»): окно покажет, что
+  нового, и установит новую версию. AppImage заменит сам себя, .deb установится после запроса пароля, копия,
+  установленная из исходников через `pip install .`, переустановится из релиза. Затем Mangosteen перезапустится.
 - **Удаление.** Сначала выключите в настройках меню файловых менеджеров и запуск при входе, затем закройте Mangosteen.
   AppImage: удалите файл и `~/.local/share/applications/mangosteen.desktop`. .deb: `sudo apt remove mangosteen`.
   Настройки остаются в `~/.config/mangosteen`, история — в `~/.local/state/mangosteen`, если хотите удалить и их.

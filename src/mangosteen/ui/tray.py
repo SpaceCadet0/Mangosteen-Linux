@@ -22,6 +22,7 @@ class TrayController(QObject):
     open_settings = Signal()
     open_welcome = Signal()
     open_about = Signal()
+    check_updates = Signal()
     open_log = Signal()
     quit_requested = Signal()
     reveal_result = Signal(object)  # ResultEntry
@@ -58,8 +59,9 @@ class TrayController(QObject):
         self.menu.popup(QCursor.pos())
 
     def _activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
+        # A left click opens the same menu as a right click (the right click is handled by Qt itself).
         if reason == QSystemTrayIcon.ActivationReason.Trigger:
-            self.choose_files.emit(WheelKind.CONVERT)
+            self.popup_at_cursor()
 
     def rebuild(self) -> None:
         menu = self.menu
@@ -77,6 +79,7 @@ class TrayController(QObject):
         menu.addAction(L("Settings…")).triggered.connect(lambda: self.open_settings.emit())
         menu.addAction(L("Welcome…")).triggered.connect(lambda: self.open_welcome.emit())
         menu.addAction(L("Open log")).triggered.connect(lambda: self.open_log.emit())
+        menu.addAction(L("Check for Updates…")).triggered.connect(lambda: self.check_updates.emit())
         menu.addAction(L("About Mangosteen")).triggered.connect(lambda: self.open_about.emit())
         menu.addSeparator()
         menu.addAction(L("Quit Mangosteen")).triggered.connect(lambda: self.quit_requested.emit())

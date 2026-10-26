@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
 from .. import __version__
 from ..core.loc import L
@@ -11,6 +11,8 @@ from . import art, layoututil
 
 
 class AboutWindow(QWidget):
+    check_updates = Signal()
+
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle(L("About Mangosteen"))
@@ -37,12 +39,19 @@ class AboutWindow(QWidget):
         copyright_ = QLabel("Copyright © 2026 Igor Rusakov (SpaceCadet) · MIT")
         copyright_.setAlignment(Qt.AlignmentFlag.AlignCenter)
         copyright_.setStyleSheet("color: gray; font-size: 11px;")
+        updates = QPushButton(L("Check for Updates…"))
+        updates.clicked.connect(self.check_updates.emit)
         close = QPushButton(L("Close"))
         close.clicked.connect(self.close)
         for widget in (icon, title, version, text, link, copyright_):
             layout.addWidget(widget)
         layout.addSpacing(8)
-        layout.addWidget(close, alignment=Qt.AlignmentFlag.AlignCenter)
+        buttons = QHBoxLayout()
+        buttons.addStretch(1)
+        buttons.addWidget(updates)
+        buttons.addWidget(close)
+        buttons.addStretch(1)
+        layout.addLayout(buttons)
         layoututil.fit(self, 380)
 
     def present(self) -> None:

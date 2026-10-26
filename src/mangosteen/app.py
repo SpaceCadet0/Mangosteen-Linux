@@ -53,6 +53,7 @@ class Application(QObject):
         self.tray.open_settings.connect(self.show_settings)
         self.tray.open_welcome.connect(self.show_welcome)
         self.tray.open_about.connect(self.show_about)
+        self.tray.check_updates.connect(self.show_updates)
         self.tray.open_log.connect(lambda: self.actions.open_path(str(paths.log_file())))
         self.tray.quit_requested.connect(self.quit)
         self.tray.reveal_result.connect(lambda entry: self.actions.reveal(entry.outputs[0]))
@@ -77,6 +78,8 @@ class Application(QObject):
         integration.install_icon()
         integration.install_launcher()
         integration.set_file_manager_menus(self.settings.file_manager_menu)
+        if integration.autostart_enabled():
+            integration.set_autostart(True)  # an updated AppImage may have a new file name
         self._start_monitor()
         log.write(f"started; tray available: {self.tray.available}; drag monitor: "
                   f"{self.monitor is not None and self.monitor.running}; X11: {x11.is_x11_session()}; Wayland: {x11.is_wayland_session()}")
@@ -345,9 +348,35 @@ class Application(QObject):
     def show_about(self) -> None:
         from .ui.about import AboutWindow
 
-        window = self._windows.get("about") or AboutWindow()
+        window = self._windows.get("about")
+        if window is None:
+            window = AboutWindow()
+            window.check_updates.connect(self.show_updates)
         self._windows["about"] = window
         window.present()
+
+    def show_updates(self) -> None:
+        from .ui.update_window import UpdateWindow
+
+        window = self._windows.get("updates")
+        if window is None:
+            window = UpdateWindow()
+            window.restart_requested.connect(self.restart)
+        self._windows["updates"] = window
+        window.present()
+
+    @Slot(list)
+    def restart(self, command: list) -> None:
+        """Starts `command` once this process has exited, then quits."""
+        from PySide6.QtCore import QProcess
+
+        from .core import updates
+
+        line = updates.restart_command([str(part) for part in command])
+        log.write(f"restart: {command}")
+        started, _pid = QProcess.startDetached(line[0], line[1:])
+        if started:
+            self.quit()
 
     def _setting_changed(self, name: str) -> None:
         from .platform import integration
