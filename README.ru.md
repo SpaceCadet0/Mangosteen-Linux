@@ -28,7 +28,70 @@
 ограничений. Приложения не делят код; у каждого свои релизы.
 
 <p align="center">
-  <img src="docs/images/ru/welcome.png" width="560" alt="Окно приветствия">
+  <img src="docs/images/demo.webp" width="100%" alt="Mangosteen для Linux в работе: колёса «Конвертация», «Инструменты» и «Действия»"><br>
+  <sub><a href="docs/media/mangosteen-demo.mp4">Смотреть в MP4</a></sub>
+</p>
+
+## Установка
+
+Самый быстрый способ: скачать AppImage, сделать его исполняемым и запустить. Ничего не устанавливается, права
+администратора не нужны, FFmpeg уже внутри.
+
+```bash
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/Mangosteen-0.2.0-x86_64.AppImage
+chmod +x Mangosteen-0.2.0-x86_64.AppImage
+./Mangosteen-0.2.0-x86_64.AppImage
+```
+
+Mangosteen появится в системном трее и добавит себя в меню приложений; окно приветствия покажет, как им пользоваться.
+Все версии — на странице [Releases](https://github.com/SpaceCadet0/Mangosteen-Linux/releases).
+
+### Другие способы установки
+
+**Debian, Ubuntu, Linux Mint и производные** — пакет .deb ставит Mangosteen в `/opt/mangosteen` и подтягивает FFmpeg и
+Tesseract из пакетов системы:
+
+```bash
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/mangosteen_0.2.0_amd64.deb
+sudo apt install ./mangosteen_0.2.0_amd64.deb
+```
+
+**Из исходников** — для любой архитектуры, в том числе ARM (Raspberry Pi), нужен Python 3.10 или новее:
+
+```bash
+sudo apt install git ffmpeg tesseract-ocr libxcb-cursor0     # или аналоги в вашем дистрибутиве
+git clone https://github.com/SpaceCadet0/Mangosteen-Linux && cd Mangosteen-Linux
+python3 -m venv ~/.local/share/mangosteen-venv && . ~/.local/share/mangosteen-venv/bin/activate
+pip install .            # ".[background]" добавляет среду для необязательной модели удаления фона
+mangosteen
+```
+
+### Требования
+
+| | AppImage | .deb | Из исходников |
+|---|---|---|---|
+| Процессор | x86_64 | x86_64 (amd64) | любой, включая ARM64 |
+| Система | glibc 2.35 или новее: Ubuntu 22.04+, Debian 12+, Linux Mint 21+, Fedora 36+, Arch, openSUSE Tumbleweed | Debian 12+, Ubuntu 22.04+ и производные | Python 3.10+ и системные библиотеки, нужные Qt 6 |
+| FFmpeg (видео и аудио) | внутри | ставится вместе с пакетом | установить самому |
+| Tesseract (распознавание текста) | установить самому | ставится вместе с пакетом (рекомендуемая зависимость) | установить самому |
+
+- **Рабочий стол.** В сеансе X11 работает всё. В сеансе Wayland жест перетаскивания отключён, а колесо открывается из
+  трея, меню файлового менеджера и командной строки (см. [X11 и Wayland](#x11-и-wayland)).
+- **Необязательные части.** Без FFmpeg сегменты видео и аудио не показываются на колесе; без Tesseract инструмент
+  «Текст» и кнопка поиска текста отключены. Языки распознавания — отдельные пакеты (`tesseract-ocr-rus`,
+  `tesseract-ocr-spa`…).
+- **AppImage и FUSE.** Если AppImage не запускается, установите FUSE 2 (`sudo apt install libfuse2`, в Ubuntu 24.04 —
+  `libfuse2t64`) или запустите его с ключом `--appimage-extract-and-run`.
+- **Raspberry Pi.** Проверено на Raspberry Pi 5 с 64-битной Raspberry Pi OS (Bookworm), установка из исходников. Для
+  жеста нужен сеанс X11: `sudo raspi-config` → Advanced Options → Wayland → X11.
+- **Удаление.** Сначала выключите в настройках меню файловых менеджеров и запуск при входе, затем закройте Mangosteen.
+  AppImage: удалите файл и `~/.local/share/applications/mangosteen.desktop`. .deb: `sudo apt remove mangosteen`.
+  Настройки остаются в `~/.config/mangosteen`, история — в `~/.local/state/mangosteen`, если хотите удалить и их.
+
+## Как это работает
+
+<p align="center">
+  <img src="docs/images/ru/welcome.png" width="620" alt="Окно приветствия">
 </p>
 
 | Нажать во время перетаскивания | Колесо | Что делает |
@@ -95,20 +158,24 @@
 | **Распаковать** | Распаковать архивы |
 
 <p align="center">
-  <img src="docs/images/ru/crop.png" width="48%" alt="Обрезка фото">
-  <img src="docs/images/ru/edit.png" width="48%" alt="Редактор">
+  <img src="docs/images/ru/crop.png" width="40.4%" alt="Обрезка фото">
+  <img src="docs/images/ru/edit.png" width="57.6%" alt="Редактор">
 </p>
 <p align="center">
-  <img src="docs/images/ru/annotate.png" width="48%" alt="Пометки">
-  <img src="docs/images/ru/compress.png" width="48%" alt="Сжатие">
+  <img src="docs/images/ru/annotate.png" width="50.4%" alt="Пометки">
+  <img src="docs/images/ru/hide.png" width="47.6%" alt="Скрыть лица и текст">
 </p>
 <p align="center">
-  <img src="docs/images/ru/trimMedia.png" width="48%" alt="Обрезка видео">
-  <img src="docs/images/ru/bleep.png" width="48%" alt="Писк">
+  <img src="docs/images/ru/trimMedia.png" width="49%" alt="Обрезка видео">
+  <img src="docs/images/ru/bleep.png" width="49%" alt="Запикать">
 </p>
 <p align="center">
-  <img src="docs/images/ru/redactVideo.png" width="48%" alt="Скрытие областей в видео">
-  <img src="docs/images/ru/organizePDF.png" width="48%" alt="Порядок страниц">
+  <img src="docs/images/ru/compress.png" width="47.7%" alt="Сжатие">
+  <img src="docs/images/ru/visualizer.png" width="50.3%" alt="Визуализатор">
+</p>
+<p align="center">
+  <img src="docs/images/ru/organizePDF.png" width="45.6%" alt="Порядок страниц">
+  <img src="docs/images/ru/redactVideo.png" width="52.4%" alt="Скрытие областей в видео">
 </p>
 
 ## Действия
@@ -146,32 +213,6 @@ mangosteen --settings | --welcome | --quit
 Выбор сеанса X11 при входе (на Raspberry Pi — `raspi-config`) возвращает жест. Ключ `--no-drag` отключает слежение и
 на X11, а `MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND=1` включает его принудительно в сеансе Wayland, где файловый менеджер
 работает через XWayland.
-
-## Установка
-
-**AppImage** (всё внутри, включая FFmpeg):
-
-```bash
-chmod +x Mangosteen-*-x86_64.AppImage && ./Mangosteen-*-x86_64.AppImage
-```
-
-**Debian, Ubuntu и производные** (используются FFmpeg и Tesseract из системы):
-
-```bash
-sudo apt install ./mangosteen_*_amd64.deb
-```
-
-**Из исходников** (Python 3.10 или новее; FFmpeg и Tesseract из вашего дистрибутива):
-
-```bash
-python3 -m venv .venv && . .venv/bin/activate
-pip install .            # ".[background]" добавляет среду для необязательной модели удаления фона
-mangosteen
-```
-
-Пакеты дистрибутива, с которыми работает всё: `ffmpeg`, `tesseract-ocr` (и `tesseract-ocr-rus`, `tesseract-ocr-spa`…) для
-распознавания текста, а на X11 — `libxcb-cursor0`. Без FFmpeg сегменты видео и аудио не показываются на колесе; без
-Tesseract инструмент «Текст» и кнопка поиска текста отключены.
 
 ## Настройки
 

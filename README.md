@@ -28,7 +28,71 @@ Drop the files on a segment and the result appears next to the original. No wind
 uploads, no limits. The apps share no code; each has its own releases.
 
 <p align="center">
-  <img src="docs/images/en/welcome.png" width="560" alt="The welcome window">
+  <img src="docs/images/demo.webp" width="100%" alt="Mangosteen for Linux in action: the Convert, Tools and Actions wheels"><br>
+  <sub><a href="docs/media/mangosteen-demo.mp4">Watch it as MP4</a></sub>
+</p>
+
+## Install
+
+The quickest way: download the AppImage, make it executable and start it. Nothing to install, no administrator
+rights, FFmpeg included.
+
+```bash
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/Mangosteen-0.2.0-x86_64.AppImage
+chmod +x Mangosteen-0.2.0-x86_64.AppImage
+./Mangosteen-0.2.0-x86_64.AppImage
+```
+
+Mangosteen appears in the system tray and adds itself to the applications menu; the welcome window shows how it
+works. All versions are on the [Releases](https://github.com/SpaceCadet0/Mangosteen-Linux/releases) page.
+
+### Other ways to install
+
+**Debian, Ubuntu, Linux Mint and other derivatives** — the .deb puts Mangosteen in `/opt/mangosteen` and brings
+FFmpeg and Tesseract from the system's packages:
+
+```bash
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/mangosteen_0.2.0_amd64.deb
+sudo apt install ./mangosteen_0.2.0_amd64.deb
+```
+
+**From source** — for any architecture, including ARM (Raspberry Pi), with Python 3.10 or newer:
+
+```bash
+sudo apt install git ffmpeg tesseract-ocr libxcb-cursor0     # or your distribution's equivalents
+git clone https://github.com/SpaceCadet0/Mangosteen-Linux && cd Mangosteen-Linux
+python3 -m venv ~/.local/share/mangosteen-venv && . ~/.local/share/mangosteen-venv/bin/activate
+pip install .            # add ".[background]" for the optional background-removal model runtime
+mangosteen
+```
+
+### Requirements
+
+| | AppImage | .deb | From source |
+|---|---|---|---|
+| Processor | x86_64 | x86_64 (amd64) | any, including ARM64 |
+| System | glibc 2.35 or newer: Ubuntu 22.04+, Debian 12+, Linux Mint 21+, Fedora 36+, Arch, openSUSE Tumbleweed | Debian 12+, Ubuntu 22.04+ and derivatives | Python 3.10+ and the system libraries Qt 6 needs |
+| FFmpeg (video and audio) | included | installed with it | install it yourself |
+| Tesseract (text recognition) | install it yourself | installed with it (recommended) | install it yourself |
+
+- **Desktop.** Everything works in an X11 session. In a Wayland session the drag gesture is off and the tray, the file
+  manager menus and the command line open the wheel instead (see [X11 and Wayland](#x11-and-wayland)).
+- **Optional parts.** Without FFmpeg the video and audio segments are left off the wheel; without Tesseract the Text
+  tool and the find-text button are disabled. Languages for text recognition are separate packages
+  (`tesseract-ocr-rus`, `tesseract-ocr-spa`…).
+- **AppImage and FUSE.** If the AppImage does not start, install FUSE 2 (`sudo apt install libfuse2`, on Ubuntu 24.04
+  `libfuse2t64`) or run it with `--appimage-extract-and-run`.
+- **Raspberry Pi.** Tested on a Raspberry Pi 5 with 64-bit Raspberry Pi OS (Bookworm), installed from source. The
+  gesture needs the X11 session: `sudo raspi-config` → Advanced Options → Wayland → X11.
+- **Uninstall.** First switch off the file manager menus and starting at login in Settings, then quit Mangosteen.
+  AppImage: delete the file and `~/.local/share/applications/mangosteen.desktop`. .deb: `sudo apt remove mangosteen`.
+  Settings stay in `~/.config/mangosteen` and the history in `~/.local/state/mangosteen`, if you want to delete them
+  too.
+
+## How it works
+
+<p align="center">
+  <img src="docs/images/en/welcome.png" width="620" alt="The welcome window">
 </p>
 
 | Tap while dragging | Wheel | What it does |
@@ -96,20 +160,24 @@ Each tool opens a window with a live preview, saves the result next to the origi
 | **Extract** | Unpack archives |
 
 <p align="center">
-  <img src="docs/images/en/crop.png" width="48%" alt="Crop">
-  <img src="docs/images/en/edit.png" width="48%" alt="Editor">
+  <img src="docs/images/en/crop.png" width="40.4%" alt="Crop">
+  <img src="docs/images/en/edit.png" width="57.6%" alt="Editor">
 </p>
 <p align="center">
-  <img src="docs/images/en/annotate.png" width="48%" alt="Annotate">
-  <img src="docs/images/en/compress.png" width="48%" alt="Compress">
+  <img src="docs/images/en/annotate.png" width="49.2%" alt="Annotate">
+  <img src="docs/images/en/hide.png" width="48.8%" alt="Hide faces and text">
 </p>
 <p align="center">
-  <img src="docs/images/en/trimMedia.png" width="48%" alt="Trim video">
-  <img src="docs/images/en/bleep.png" width="48%" alt="Bleep">
+  <img src="docs/images/en/trimMedia.png" width="49%" alt="Trim">
+  <img src="docs/images/en/bleep.png" width="49%" alt="Bleep">
 </p>
 <p align="center">
-  <img src="docs/images/en/redactVideo.png" width="48%" alt="Hide areas in a video">
-  <img src="docs/images/en/organizePDF.png" width="48%" alt="Page order">
+  <img src="docs/images/en/compress.png" width="47.7%" alt="Compress">
+  <img src="docs/images/en/visualizer.png" width="50.3%" alt="Visualizer">
+</p>
+<p align="center">
+  <img src="docs/images/en/organizePDF.png" width="45.6%" alt="Page order">
+  <img src="docs/images/en/redactVideo.png" width="52.4%" alt="Hide areas in a video">
 </p>
 
 ## Actions
@@ -146,32 +214,6 @@ whose drags no other program can see, so the drag gesture is switched off there 
 and the command line are used instead. Choosing an X11 session at login (or `raspi-config` on a Raspberry Pi) brings the
 gesture back. `--no-drag` turns the watching off on X11 too, and `MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND=1` forces it on in a
 Wayland session whose file manager runs under XWayland.
-
-## Install
-
-**AppImage** (everything included, including FFmpeg):
-
-```bash
-chmod +x Mangosteen-*-x86_64.AppImage && ./Mangosteen-*-x86_64.AppImage
-```
-
-**Debian, Ubuntu and derivatives** (uses the system's FFmpeg and Tesseract):
-
-```bash
-sudo apt install ./mangosteen_*_amd64.deb
-```
-
-**From source** (Python 3.10 or newer; FFmpeg and Tesseract from your distribution):
-
-```bash
-python3 -m venv .venv && . .venv/bin/activate
-pip install .            # add ".[background]" for the optional background-removal model runtime
-mangosteen
-```
-
-Packages from your distribution that make everything work: `ffmpeg`, `tesseract-ocr` (plus `tesseract-ocr-rus`,
-`tesseract-ocr-spa`…) for text recognition, and on X11 `libxcb-cursor0`. Without FFmpeg the video and audio segments are
-left off the wheel; without Tesseract the text tool and the find-text button are disabled.
 
 ## Settings
 
