@@ -5,8 +5,9 @@ from __future__ import annotations
 
 import math
 
-from PySide6.QtCore import QPointF, QRectF, Qt, QTimer, Signal
-from PySide6.QtGui import QColor, QFont, QFontMetricsF, QGuiApplication, QPainter, QPainterPath, QPainterPathStroker
+from PySide6.QtCore import QEvent, QPointF, QRectF, Qt, QTimer, Signal
+from PySide6.QtGui import (QColor, QFont, QFontMetricsF, QGuiApplication, QPainter, QPainterPath, QPainterPathStroker,
+                           QPixmap)
 from PySide6.QtWidgets import QWidget
 
 from ..core.loc import L
@@ -38,6 +39,7 @@ class WheelWidget(QWidget):
         self._highlighted: int | None = None
         self._opaque = False
         self.awaiting_files = False
+        self._reset_caches()
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
 
@@ -50,6 +52,7 @@ class WheelWidget(QWidget):
         self.items = items
         self.count = count
         self._opaque = opaque
+        self._reset_caches()
         self._set_highlight(None)
         self.setAccessibleName(f"{wheel_title(kind)}, {file_count(count)}")
         self.update()
@@ -58,11 +61,24 @@ class WheelWidget(QWidget):
     def highlighted(self) -> int | None:
         return self._highlighted
 
+    def _reset_caches(self) -> None:
+        """Everything that only changes with the items: drawn once, reused on every hover (a Raspberry Pi redraws a
+        whole wheel slowly enough for the highlight to lag behind the pointer)."""
+        self._paths: dict[int, QPainterPath] = {}
+        self._layouts: dict[int, object] = {}
+        self._backdrop: QPixmap | None = None
+
     def _set_highlight(self, index: int | None) -> None:
         if index == self._highlighted:
             return
-        self._highlighted = index
-        self.update()
+        previous, self._highlighted = self._highlighted, index
+        # Only the two segments that change are redrawn.
+        changed = [i for i in (previous, index) if i is not None and i < len(self.items)]
+        if changed and len(self.items) > 1:
+            for i in changed:
+                self.update(self.segment_path(i).boundingRect().toAlignedRect().adjusted(-2, -2, 2, 2))
+        else:
+            self.update()
         if index is not None:
             self.hovered.emit()
 
@@ -101,6 +117,12 @@ class WheelWidget(QWidget):
         return path
 
     def segment_path(self, index: int) -> QPainterPath:
+        path = self._paths.get(index)
+        if path is None:
+            path = self._paths[index] = self._make_segment_path(index)
+        return path
+
+    def _make_segment_path(self, index: int) -> QPainterPath:
         if len(self.items) == 1:
             ring = self._circle_path(OUTER_RADIUS - 4)
             ring.addPath(self._circle_path(INNER_RADIUS + 4))
@@ -136,22 +158,47 @@ class WheelWidget(QWidget):
 
     # MARK: Drawing
 
-    def paintEvent(self, _event) -> None:  # noqa: ANN001
+    def paintEvent(self, event) -> None:  # noqa: ANN001
         painter = QPainter(self)
+        if self._opaque:
+            # Without a compositor the window is cut to a circle; what lies outside the wheel itself is filled too,
+            # or it would show black.
+            painter.fillRect(self.rect(), brand.window_color())
+        else:
+            painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_Source)
+            painter.fillRect(event.rect(), Qt.GlobalColor.transparent)
+            painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceOver)
+        painter.drawPixmap(0, 0, self._backdrop_pixmap())
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
-        window = brand.window_color()
+        area = QRectF(event.rect())
+        for index in range(len(self.items)):
+            if self.segment_path(index).boundingRect().intersects(area):
+                self._draw_segment(painter, index)
+        painter.end()
+
+    def _backdrop_pixmap(self) -> QPixmap:
+        """The shadow, the disc and the centre text, which do not change while the pointer moves."""
+        ratio = self.devicePixelRatioF()
+        if self._backdrop is not None and self._backdrop.devicePixelRatio() == ratio:
+            return self._backdrop
+        pixmap = QPixmap(int(self.width() * ratio), int(self.height() * ratio))
+        pixmap.setDevicePixelRatio(ratio)
+        pixmap.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
         if not self._opaque:
             self._draw_shadow(painter)
-        background = QColor(window)
+        background = QColor(brand.window_color())
         background.setAlphaF(1.0 if self._opaque else 0.96)
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(background)
         painter.drawEllipse(self._center, OUTER_RADIUS, OUTER_RADIUS)
-        for index in range(len(self.items)):
-            self._draw_segment(painter, index)
         self._draw_center(painter)
         painter.end()
+        self._backdrop = pixmap
+        return pixmap
 
     def _draw_shadow(self, painter: QPainter) -> None:
         for step in range(_SHADOW, 0, -1):
@@ -187,6 +234,11 @@ class WheelWidget(QWidget):
                          item.title)
 
     def _label_layout(self, index: int, title: str):  # noqa: ANN202
+        if index not in self._layouts:
+            self._layouts[index] = self._fit_label(index, title)
+        return self._layouts[index]
+
+    def _fit_label(self, index: int, title: str):  # noqa: ANN202
         """Icon and title are centred together on the segment. The title gets the largest font (11.5 → 8 pt) and the
         widest wrap (≤ 2 lines, no word broken) for which both boxes lie entirely within the segment's ring sector.
         Returns (font, text rect, icon rect, lines)."""
@@ -299,6 +351,11 @@ class WheelWidget(QWidget):
 
     # MARK: Mouse (wheel opened from the tray or a file manager)
 
+    def changeEvent(self, event) -> None:  # noqa: ANN001, N802
+        if event.type() in (QEvent.Type.PaletteChange, QEvent.Type.FontChange, QEvent.Type.StyleChange):
+            self._reset_caches()
+        super().changeEvent(event)
+
     def mouseMoveEvent(self, event) -> None:  # noqa: ANN001, N802
         self._set_highlight(self.segment_index_at(event.position()))
 
@@ -393,7 +450,9 @@ class WheelController:
         if opaque:
             from PySide6.QtGui import QRegion
 
-            widget.setMask(QRegion(0, 0, DIAMETER, DIAMETER, QRegion.RegionType.Ellipse))
+            # Cut to the wheel itself: the margin around it (where a drop still counts) would otherwise show as a ring.
+            edge = int(DIAMETER / 2 - OUTER_RADIUS) - 1
+            widget.setMask(QRegion(edge, edge, DIAMETER - 2 * edge, DIAMETER - 2 * edge, QRegion.RegionType.Ellipse))
         else:
             widget.clearMask()
 
