@@ -92,28 +92,31 @@ def main(argv: list[str] | None = None) -> int:
         message = {"cmd": "menu"}
 
     if message is not None and not args.snapshot:
-        # Hand the request to the running instance, if there is one.
-        from PySide6.QtCore import QCoreApplication
-
-        probe = QCoreApplication.instance() or QCoreApplication(sys.argv[:1])
+        # Hand the request to the running instance, if there is one. The application object is the real one: a
+        # QCoreApplication made just for this would stay alive and could not be replaced by a QApplication later.
+        _qt_application()
         if ipc.send(message):
             return 0
         if args.quit:
             return 0
-        del probe
 
     return run(args, files, message)
 
 
-def run(args, files: list[str], message: dict | None) -> int:  # noqa: ANN001
-    """Starts the Qt application: the tray app, or a one-off snapshot."""
+def _qt_application():  # noqa: ANN202
+    """The QApplication, created on first use (the platform is chosen first)."""
     if os.environ.get("XDG_SESSION_TYPE") == "wayland" and os.environ.get("DISPLAY") \
             and "QT_QPA_PLATFORM" not in os.environ:
         # XWayland gives windows a real position and lets Mangosteen see drags from other X11 windows.
         os.environ["QT_QPA_PLATFORM"] = "xcb"
     from PySide6.QtWidgets import QApplication
 
-    qapp = QApplication.instance() or QApplication(sys.argv[:1])
+    return QApplication.instance() or QApplication(sys.argv[:1])
+
+
+def run(args, files: list[str], message: dict | None) -> int:  # noqa: ANN001
+    """Starts the Qt application: the tray app, or a one-off snapshot."""
+    qapp = _qt_application()
     if args.snapshot:
         from .ui import snapshot
 

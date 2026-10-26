@@ -3,6 +3,7 @@ to it over a local socket and exit."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 
@@ -13,7 +14,10 @@ from .core import log
 
 
 def server_name() -> str:
-    return f"mangosteen-{os.getuid()}"
+    """One name per user; with MANGOSTEEN_HOME (portable installs, tests) one per home folder, so they stay apart."""
+    home = os.environ.get("MANGOSTEEN_HOME")
+    suffix = "-" + hashlib.sha1(home.encode("utf-8")).hexdigest()[:10] if home else ""
+    return f"mangosteen-{os.getuid()}{suffix}"
 
 
 def send(message: dict, timeout_ms: int = 800) -> bool:

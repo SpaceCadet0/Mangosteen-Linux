@@ -191,3 +191,28 @@ def test_history_prunes_missing_files(work):
     for i in range(30):
         h.add(f"job {i}", [str(a)])
     assert len(h.entries) == history.KEPT and len(h.live()) == history.SHOWN
+
+
+def test_first_launch_with_a_tool_starts_the_real_application(tmp_path):
+    """`mangosteen --tool …` as the first launch used to create a QCoreApplication for the hand-over check and then
+    fail on QApplication methods; the application must start, and a second launch must hand over and quit it."""
+    import subprocess
+    import sys
+    import time
+
+    from PIL import Image
+
+    picture = tmp_path / "t.png"
+    Image.new("RGB", (40, 30), "purple").save(picture)
+    environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", MANGOSTEEN_HOME=str(tmp_path / "home"))
+    first = subprocess.Popen([sys.executable, "-m", "mangosteen", "--tool", "tool.crop", str(picture)], env=environment,
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        deadline = time.monotonic() + 60
+        while first.poll() is None and time.monotonic() < deadline:  # a cold start can take a while
+            time.sleep(1.5)
+            subprocess.run([sys.executable, "-m", "mangosteen", "--quit"], env=environment, timeout=30, check=True)
+        assert first.returncode == 0, first.stderr.read().decode()[-600:]
+    finally:
+        if first.poll() is None:
+            first.kill()
