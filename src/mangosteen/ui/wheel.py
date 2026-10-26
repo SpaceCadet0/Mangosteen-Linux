@@ -329,13 +329,12 @@ class WheelWidget(QWidget):
                 self.files_entered.emit([])
 
     def dragMoveEvent(self, event) -> None:  # noqa: ANN001, N802
-        index = self.segment_index_at(event.position())
-        self._set_highlight(index)
-        if index is None:
-            event.ignore()
-        else:
-            event.setDropAction(Qt.DropAction.CopyAction)
-            event.accept()
+        self._set_highlight(self.segment_index_at(event.position()))
+        # The whole wheel takes the drop and the segment is chosen where it lands. Turning the drag down off a segment
+        # made a drop fail on a slow machine: the file manager decides by the last answer it got, and that answer
+        # could still be about the spot the pointer had just left.
+        event.setDropAction(Qt.DropAction.CopyAction)
+        event.accept()
 
     def dragLeaveEvent(self, _event) -> None:  # noqa: ANN001, N802
         self._set_highlight(None)

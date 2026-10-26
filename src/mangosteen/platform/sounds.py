@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import math
 import struct
+import time
 import wave
 from collections.abc import Callable
 
@@ -45,8 +46,13 @@ def synthesize(path: str, duration: float, sample: Callable[[float], float]) -> 
 
 
 class Sounds:
+    # A play that holds up the interface longer than this turns the hover click off for the session: on some audio
+    # setups each play waits for the sound server, and the wheel's highlight then lags behind the pointer.
+    _SLOW_SECONDS = 0.03
+
     def __init__(self) -> None:
         self._effects: dict[str, object] = {}
+        self._muted: set[str] = set()
 
     def _effect(self, name: str):  # noqa: ANN202
         if name in self._effects:
@@ -73,6 +79,14 @@ class Sounds:
         return effect
 
     def play(self, name: str) -> None:
+        if name in self._muted:
+            return
         effect = self._effect(name)
-        if effect is not None:
-            effect.play()
+        if effect is None:
+            return
+        started = time.monotonic()
+        effect.play()
+        took = time.monotonic() - started
+        if took > self._SLOW_SECONDS and name == "hover":
+            self._muted.add(name)
+            log.write(f"sound: playing took {took * 1000:.0f} ms; the hover click is off until restart")

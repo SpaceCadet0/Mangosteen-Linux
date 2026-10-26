@@ -27,7 +27,7 @@ from ..core import log
 # X11 modifier masks, as in the pointer query's state.
 _MASKS = {"shift": 0x01, "ctrl": 0x04, "alt": 0x08, "super": 0x40}
 _BUTTON1 = 0x100
-_POLL_SECONDS = 1 / 120
+_POLL_SECONDS = 1 / 60  # quick enough for a key tap, light enough for a Raspberry Pi
 # A press longer than this is treated as a hold (a file manager's Shift-to-move), not a tap.
 MAX_TAP_SECONDS = 0.8
 
