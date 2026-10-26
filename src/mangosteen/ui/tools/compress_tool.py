@@ -53,7 +53,10 @@ class CompressTool(ToolWindow):
         else:
             self._preview = PreviewPane(1, 1)
             self._estimate = QLabel()
-        outer.addWidget(self._controls())
+        controls = QVBoxLayout()
+        controls.addWidget(self._controls())
+        controls.addStretch(1)  # a taller window keeps the controls together instead of spreading them out
+        outer.addLayout(controls)
         self.set_body(layout=outer)
         self.set_action_enabled(bool(self.images or self.pdfs))
         self._changed()

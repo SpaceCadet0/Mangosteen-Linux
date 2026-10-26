@@ -231,3 +231,45 @@ def test_drags_are_only_watched_in_a_real_x11_session(monkeypatch):
     assert not x11.can_watch_drags()                      # XWayland inside Wayland: leave drags alone
     monkeypatch.setenv("MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND", "1")
     assert x11.can_watch_drags()                          # unless asked to
+
+
+def test_float_shows_thumbnails(qapp, tmp_path):
+    """Thumbnails are made on a worker pool; they used to be handed over with a timer on that thread, which never
+    fired, so the shelf showed only icons."""
+    import time
+
+    import pillow_heif
+    from PIL import Image
+    from PySide6.QtWidgets import QApplication
+
+    from mangosteen.ui.float_shelf import FloatShelf
+
+    pillow_heif.register_heif_opener()
+    paths = [tmp_path / "a.png", tmp_path / "b.heic"]
+    for path in paths:
+        Image.new("RGB", (120, 80), "purple").save(path)
+    shelf = FloatShelf()
+    shelf.add([str(p) for p in paths])
+    deadline = time.monotonic() + 10
+
+    def thumbnails():
+        from mangosteen.ui.float_shelf import _Row
+
+        return [row for row in shelf.findChildren(_Row) if row.picture.pixmap() is not None
+                and not row.picture.pixmap().isNull() and row.picture.pixmap().width() > 30]
+    while len(thumbnails()) < 2 and time.monotonic() < deadline:
+        QApplication.processEvents()
+        time.sleep(0.02)
+    assert len(thumbnails()) == 2
+    shelf.close()
+    shelf.deleteLater()
+
+
+def test_float_names_home_folders_with_a_tilde(monkeypatch):
+    from mangosteen.ui.float_shelf import folder_label
+
+    monkeypatch.setenv("HOME", "/home/anna")
+    assert folder_label("/home/anna/Pictures") == "~/Pictures"
+    assert folder_label("/home/anna") == "~"
+    assert folder_label("/home/annabel/x") == "/home/annabel/x"
+    assert folder_label("/tmp") == "/tmp"

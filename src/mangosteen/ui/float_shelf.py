@@ -28,6 +28,14 @@ def _exists(path: str) -> bool:
     return os.path.lexists(path)
 
 
+def folder_label(folder: str) -> str:
+    """A folder as a file manager names it: inside the home folder it starts with "~"."""
+    home = os.path.expanduser("~")
+    if home not in ("", "/") and (folder == home or folder.startswith(home.rstrip("/") + "/")):
+        return "~" + folder[len(home.rstrip("/")):]
+    return folder
+
+
 def make_thumbnail(path: str, side: int) -> QImage | None:
     """A real thumbnail for photos and PDFs; None when the file type has none (the shelf then shows an icon)."""
     fmt_ = file_format.detect(path)
@@ -155,8 +163,12 @@ class _Row(QWidget):
 class FloatShelf(QWidget):
     """The shelf window. `moves_files` says whether dragging out should offer a move instead of a copy."""
 
+    # A thumbnail made on the worker pool, delivered to the interface thread (row, image).
+    _thumbnail_ready = Signal(object, object)
+
     def __init__(self, moves_files=lambda: False, on_dragging=None) -> None:  # noqa: ANN001
         super().__init__()
+        self._thumbnail_ready.connect(self._show_thumbnail)
         self.setWindowTitle("Float")
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -241,17 +253,27 @@ class FloatShelf(QWidget):
     def set_move_mode(self, moving: bool) -> None:
         self._mode.setChecked(moving)
 
+    @property
+    def is_settled(self) -> bool:
+        """For snapshots: every thumbnail asked for has been made."""
+        return all(future.done() for future in getattr(self, "_pending", []))
+
     def request_thumbnail(self, path: str, row: _Row) -> None:
         future = self._pool.submit(make_thumbnail, path, _THUMB * 2)
+        self._pending = [f for f in getattr(self, "_pending", []) if not f.done()] + [future]
 
-        def done(f) -> None:  # noqa: ANN001
+        def done(f) -> None:  # noqa: ANN001 - runs on the pool's thread, which has no event loop for timers
             image = f.result()
             if image is not None and not image.isNull():
-                from PySide6.QtCore import QTimer
-
-                QTimer.singleShot(0, lambda: row.set_thumbnail(image) if row.isVisible() or True else None)
+                self._thumbnail_ready.emit(row, image)
 
         future.add_done_callback(done)
+
+    def _show_thumbnail(self, row: _Row, image: QImage) -> None:
+        import shiboken6
+
+        if shiboken6.isValid(row):  # the list may have been rebuilt in the meantime
+            row.set_thumbnail(image)
 
     def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
         painter = QPainter(self)
@@ -307,7 +329,7 @@ class FloatShelf(QWidget):
         if len(present) > 1:
             self._add_row(present, fmt("All {0}", count(len(present), "item")), L("Drag them all at once"), None)
         for item in self.items:
-            self._add_row([item], os.path.basename(item) or item, os.path.dirname(item), item)
+            self._add_row([item], os.path.basename(item) or item, folder_label(os.path.dirname(item)), item)
         self.adjustSize()
 
     def _add_row(self, paths: list[str], title: str, subtitle: str, single: str | None) -> None:
