@@ -24,9 +24,11 @@ ffmpeg -i promo/frames-wide/element-%03d.png -vf scale=1200:-1:flags=lanczos pro
 img2webp -loop 0 -kmin 0 -kmax 1 -lossy -q 85 -m 6 -d 33 promo/frames-readme/f-*.png -o docs/images/demo.webp
 ffmpeg -framerate 30 -i promo/frames-wide/element-%03d.png -vf format=yuv420p -an -c:v libx264 -preset slow \
   -tune animation -crf 17 -g 30 -movflags +faststart docs/media/mangosteen-demo.mp4
-# Welcome window (shown at 300 × 300; 600 × 600 for HiDPI) and its still.
-ffmpeg -framerate 30 -i promo/frames-square/element-%03d.png -vf scale=600:600:flags=lanczos,format=yuv420p -an \
-  -c:v libx264 -preset slow -tune animation -crf 17 -g 30 -movflags +faststart src/mangosteen/assets/welcome-demo.mp4
+# Welcome window (shown at 300 × 300; 600 × 600 for HiDPI) and its still. An animated WebP, which Qt plays with its
+# image plugins alone: its video player needs a multimedia backend that PySide6 for ARM does not have.
+mkdir -p promo/frames-welcome
+ffmpeg -i promo/frames-square/element-%03d.png -vf scale=600:600:flags=lanczos promo/frames-welcome/f-%03d.png
+img2webp -loop 0 -kmin 0 -kmax 1 -lossy -q 80 -m 6 -d 33 promo/frames-welcome/f-*.png -o src/mangosteen/assets/welcome-demo.webp
 ffmpeg -i promo/frames-square/element-087.png -vf scale=600:600:flags=lanczos src/mangosteen/assets/welcome-demo.png
 ```
 

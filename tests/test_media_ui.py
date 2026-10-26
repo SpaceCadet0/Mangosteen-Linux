@@ -257,3 +257,31 @@ def test_redact_video_tool_draws_an_area_and_runs(work, context):
     assert window._action.isEnabled()
     window.run()
     assert "(hidden)" in context.jobs.outputs[0]
+
+
+def test_player_without_a_playback_backend_falls_back_to_stills(qapp, monkeypatch):
+    """PySide6 for ARM (Raspberry Pi) ships QtMultimedia without a backend: the player must say it is unavailable, so
+    the windows show still frames and the play buttons are off, instead of a player that plays nothing."""
+    from mangosteen.ui.tools import media_widgets
+
+    monkeypatch.delenv("MANGOSTEEN_NO_PLAYER", raising=False)
+    monkeypatch.setattr(media_widgets, "has_playback", lambda: False)
+    player = media_widgets.MediaPlayer(with_video=True)
+    assert not player.available and player.video_widget is None
+
+
+def test_welcome_animation_plays_without_a_media_backend(qapp, monkeypatch):
+    from mangosteen.ui.welcome import DemoVideo
+
+    monkeypatch.delenv("MANGOSTEEN_NO_PLAYER", raising=False)
+    demo = DemoVideo()
+    demo.show()
+    seen = set()
+    started = time.monotonic()
+    while time.monotonic() - started < 1.5:
+        QApplication.processEvents()
+        time.sleep(0.01)
+        seen.add(demo._movie.currentFrameNumber())
+    assert len(seen) > 10
+    demo.stop()
+    demo.deleteLater()

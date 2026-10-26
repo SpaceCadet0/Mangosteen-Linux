@@ -3,6 +3,7 @@ puts them together with a transport bar."""
 
 from __future__ import annotations
 
+import functools
 import os
 from dataclasses import dataclass
 
@@ -35,6 +36,20 @@ def clock(seconds: float) -> str:
 # MARK: Player
 
 
+@functools.lru_cache(maxsize=1)
+def has_playback() -> bool:
+    """Whether Qt can play media here. Some PySide6 builds (for ARM, on a Raspberry Pi) ship QtMultimedia without a
+    backend: a player can be made but plays nothing. Asked once, so Qt's warning about it appears only once."""
+    try:
+        from PySide6.QtMultimedia import QMediaPlayer
+    except ImportError:
+        return False
+    player = QMediaPlayer()
+    available = player.isAvailable()
+    player.deleteLater()
+    return available
+
+
 class MediaPlayer(QObject):
     """QMediaPlayer with the sound output and an optional video widget. Without Qt's multimedia backend (or with
     MANGOSTEEN_NO_PLAYER set, which the snapshots use) it does nothing and `available` is False; the windows then
@@ -49,13 +64,11 @@ class MediaPlayer(QObject):
         self.video_widget = None
         self._stop_at: float | None = None
         self._player = None
-        if os.environ.get("MANGOSTEEN_NO_PLAYER"):
+        if os.environ.get("MANGOSTEEN_NO_PLAYER") or not has_playback():
             return
-        try:
-            from PySide6.QtMultimedia import QAudioOutput, QMediaPlayer
-            from PySide6.QtMultimediaWidgets import QVideoWidget
-        except ImportError:
-            return
+        from PySide6.QtMultimedia import QAudioOutput, QMediaPlayer
+        from PySide6.QtMultimediaWidgets import QVideoWidget
+
         self._player = QMediaPlayer()
         self._output = QAudioOutput()
         self._player.setAudioOutput(self._output)

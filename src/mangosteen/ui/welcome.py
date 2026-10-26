@@ -5,8 +5,8 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from PySide6.QtCore import QRectF, Qt, QUrl
-from PySide6.QtGui import QColor, QPainter, QPainterPath, QPixmap
+from PySide6.QtCore import QRectF, Qt
+from PySide6.QtGui import QPainter, QPainterPath, QPixmap
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
 from ..core.loc import L
@@ -18,67 +18,51 @@ _SIDE = 300
 
 
 class DemoVideo(QWidget):
-    """The demo from the README, square, looping silently with no controls; it stops when the window closes. Without
-    Qt's multimedia backend (or in snapshots) it shows a still from the same video."""
+    """The demo from the README, square, looping silently; it stops when the window closes. It is an animated WebP
+    played with QMovie, which needs only Qt's image plugins: Qt's video player depends on a multimedia backend that some
+    builds do not have (PySide6 for ARM, on a Raspberry Pi). Snapshots show a still from it."""
 
     def __init__(self) -> None:
         super().__init__()
         self.setFixedSize(_SIDE, _SIDE)
-        self._player = None
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        video = _ASSETS / "welcome-demo.mp4"
-        if video.is_file() and not os.environ.get("MANGOSTEEN_NO_PLAYER"):
-            try:
-                from PySide6.QtMultimedia import QMediaPlayer
-                from PySide6.QtMultimediaWidgets import QVideoWidget
+        self._movie = None
+        self._still = QPixmap(str(_ASSETS / "welcome-demo.png"))
+        animation = _ASSETS / "welcome-demo.webp"
+        if animation.is_file() and not os.environ.get("MANGOSTEEN_NO_PLAYER"):
+            from PySide6.QtGui import QMovie
 
-                self._player = QMediaPlayer(self)
-                view = QVideoWidget()
-                view.setAspectRatioMode(Qt.AspectRatioMode.KeepAspectRatioByExpanding)
-                self._player.setVideoOutput(view)
-                self._player.setLoops(QMediaPlayer.Loops.Infinite)
-                self._player.setSource(QUrl.fromLocalFile(str(video)))
-                layout.addWidget(view)
-                return
-            except ImportError:
-                self._player = None
-        still = QLabel()
-        still.setPixmap(_rounded(QPixmap(str(_ASSETS / "welcome-demo.png")), _SIDE, 12))
-        layout.addWidget(still)
+            movie = QMovie(str(animation), parent=self)
+            if movie.isValid():
+                movie.setCacheMode(QMovie.CacheMode.CacheNone)
+                movie.frameChanged.connect(lambda _frame: self.update())
+                self._movie = movie
+
+    def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
+        frame = self._movie.currentPixmap() if self._movie is not None else self._still
+        if frame.isNull():
+            frame = self._still
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
+        path = QPainterPath()
+        path.addRoundedRect(QRectF(self.rect()), 12, 12)
+        painter.setClipPath(path)
+        painter.drawPixmap(QRectF(self.rect()), frame, QRectF(frame.rect()))
+        painter.end()
 
     def showEvent(self, event) -> None:  # noqa: ANN001, N802
-        if self._player is not None:
-            self._player.play()
+        if self._movie is not None:
+            self._movie.start()
         super().showEvent(event)
 
     def hideEvent(self, event) -> None:  # noqa: ANN001, N802
-        if self._player is not None:
-            self._player.pause()
+        if self._movie is not None:
+            self._movie.setPaused(True)
         super().hideEvent(event)
 
     def stop(self) -> None:
-        if self._player is not None:
-            self._player.stop()
-            self._player.setSource(QUrl())
-
-
-def _rounded(pixmap: QPixmap, side: int, radius: float) -> QPixmap:
-    ratio = 2.0
-    result = QPixmap(int(side * ratio), int(side * ratio))
-    result.setDevicePixelRatio(ratio)
-    result.fill(QColor(0, 0, 0, 0))
-    if pixmap.isNull():
-        return result
-    painter = QPainter(result)
-    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-    painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
-    path = QPainterPath()
-    path.addRoundedRect(QRectF(0, 0, side, side), radius, radius)
-    painter.setClipPath(path)
-    painter.drawPixmap(QRectF(0, 0, side, side), pixmap, QRectF(pixmap.rect()))
-    painter.end()
-    return result
+        if self._movie is not None:
+            self._movie.stop()
 
 
 class WelcomeWindow(QWidget):
