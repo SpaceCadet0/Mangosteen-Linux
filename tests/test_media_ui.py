@@ -285,3 +285,23 @@ def test_welcome_animation_plays_without_a_media_backend(qapp, monkeypatch):
     assert len(seen) > 10
     demo.stop()
     demo.deleteLater()
+
+
+def test_welcome_animation_plays_with_pillow_when_qt_cannot(qapp, monkeypatch):
+    """On a Raspberry Pi, Qt's WebP plugin could not play the animation and only the still showed; Pillow then
+    decodes the frames itself."""
+    from mangosteen.ui.welcome import DemoVideo
+
+    monkeypatch.delenv("MANGOSTEEN_NO_PLAYER", raising=False)
+    demo = DemoVideo(use_qmovie=False)
+    assert demo._movie is None and demo._frames is not None
+    demo.show()
+    seen = set()
+    started = time.monotonic()
+    while time.monotonic() - started < 1.5:
+        QApplication.processEvents()
+        time.sleep(0.005)
+        seen.add(demo._frames._index)
+    assert len(seen) > 10
+    demo.stop()
+    demo.deleteLater()

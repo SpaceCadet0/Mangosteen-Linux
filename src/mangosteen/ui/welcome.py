@@ -5,10 +5,11 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from PySide6.QtCore import QRectF, Qt
+from PySide6.QtCore import QRectF, Qt, QTimer
 from PySide6.QtGui import QPainter, QPainterPath, QPixmap
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
+from ..core import log
 from ..core.loc import L
 from ..core.wheel_catalog import WheelKind
 from . import art, brand, glyphs, layoututil
@@ -18,27 +19,54 @@ _SIDE = 300
 
 
 class DemoVideo(QWidget):
-    """The demo from the README, square, looping silently; it stops when the window closes. It is an animated WebP
-    played with QMovie, which needs only Qt's image plugins: Qt's video player depends on a multimedia backend that some
-    builds do not have (PySide6 for ARM, on a Raspberry Pi). Snapshots show a still from it."""
+    """The demo from the README, square, looping silently; it stops when the window closes. It is an animated WebP:
+    Qt's video player needs a multimedia backend that some builds lack (PySide6 for ARM, on a Raspberry Pi). QMovie
+    plays it where Qt has its WebP plugin; otherwise Pillow decodes the frames. Snapshots show a still from it."""
 
-    def __init__(self) -> None:
+    def __init__(self, use_qmovie: bool = True) -> None:
         super().__init__()
         self.setFixedSize(_SIDE, _SIDE)
         self._movie = None
+        self._frames = None
+        self._frame: QPixmap | None = None
+        self._timer = QTimer(self)
+        self._timer.setSingleShot(True)
+        self._timer.timeout.connect(self._next_frame)
         self._still = QPixmap(str(_ASSETS / "welcome-demo.png"))
         animation = _ASSETS / "welcome-demo.webp"
-        if animation.is_file() and not os.environ.get("MANGOSTEEN_NO_PLAYER"):
+        if not animation.is_file() or os.environ.get("MANGOSTEEN_NO_PLAYER"):
+            return
+        if use_qmovie:
             from PySide6.QtGui import QMovie
 
             movie = QMovie(str(animation), parent=self)
-            if movie.isValid():
+            if movie.isValid() and movie.frameCount() > 1:
                 movie.setCacheMode(QMovie.CacheMode.CacheNone)
                 movie.frameChanged.connect(lambda _frame: self.update())
                 self._movie = movie
+                return
+        try:
+            self._frames = _PillowFrames(animation)
+        except Exception as error:  # noqa: BLE001 - the still is shown instead
+            log.write(f"welcome animation unavailable: {error}")
+
+    @property
+    def is_playing(self) -> bool:
+        return self._movie is not None or self._frames is not None
+
+    def _next_frame(self) -> None:
+        if self._frames is None:
+            return
+        image, duration = self._frames.next(self.devicePixelRatioF())
+        self._frame = QPixmap.fromImage(image)
+        self.update()
+        self._timer.start(max(duration, 15))
 
     def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
-        frame = self._movie.currentPixmap() if self._movie is not None else self._still
+        if self._movie is not None:
+            frame = self._movie.currentPixmap()
+        else:
+            frame = self._frame if self._frame is not None else self._still
         if frame.isNull():
             frame = self._still
         painter = QPainter(self)
@@ -53,16 +81,50 @@ class DemoVideo(QWidget):
     def showEvent(self, event) -> None:  # noqa: ANN001, N802
         if self._movie is not None:
             self._movie.start()
+        elif self._frames is not None:
+            self._next_frame()
         super().showEvent(event)
 
     def hideEvent(self, event) -> None:  # noqa: ANN001, N802
         if self._movie is not None:
             self._movie.setPaused(True)
+        self._timer.stop()
         super().hideEvent(event)
 
     def stop(self) -> None:
         if self._movie is not None:
             self._movie.stop()
+        self._timer.stop()
+
+
+class _PillowFrames:
+    """The frames of an animated WebP, one at a time, decoded by Pillow."""
+
+    def __init__(self, path: Path) -> None:
+        from PIL import Image
+
+        self._image = Image.open(path)
+        self._count = getattr(self._image, "n_frames", 1)
+        if self._count < 2:
+            raise ValueError("not an animation")
+        self._index = -1
+
+    def next(self, ratio: float) -> tuple:  # (QImage, duration in ms)
+        from ..convert import qtutil
+
+        self._index = (self._index + 1) % self._count
+        self._image.seek(self._index)
+        self._image.load()
+        duration = int(self._image.info.get("duration") or 33)
+        frame = self._image.convert("RGB")
+        side = max(1, round(_SIDE * ratio))
+        if frame.width != side:
+            from PIL import Image
+
+            frame = frame.resize((side, side), Image.Resampling.BILINEAR)
+        image = qtutil.pil_to_qimage(frame)
+        image.setDevicePixelRatio(ratio)
+        return image, duration
 
 
 class WelcomeWindow(QWidget):

@@ -17,11 +17,22 @@ from ..core.loc import L, count, fmt
 from . import brand, glyphs
 
 _THUMB = 48
-_PANEL = QColor(0x1C, 0x1C, 0x1E)
-_LINE = QColor(0x3A, 0x3A, 0x3D)
-_HOVER = QColor(0x2C, 0x2C, 0x2F)
-_TEXT = "#E6E6EA"
-_SECONDARY = "#9A9AA0"
+
+
+class _Colors:
+    """The shelf's colours, following the desktop's light or dark theme."""
+
+    def __init__(self, dark: bool) -> None:
+        self.panel = QColor(0x1C, 0x1C, 0x1E) if dark else QColor(0xF7, 0xF7, 0xF8)
+        self.line = QColor(0x3A, 0x3A, 0x3D) if dark else QColor(0xD9, 0xD9, 0xDD)
+        self.hover = QColor(0x2C, 0x2C, 0x2F) if dark else QColor(0xE9, 0xE9, 0xEC)
+        self.text = "#E6E6EA" if dark else "#1E1E21"
+        self.secondary = "#9A9AA0" if dark else "#6E6E74"
+        self.strong = "white" if dark else "black"
+
+
+def _colors() -> _Colors:
+    return _Colors(brand.is_dark())
 
 
 def _exists(path: str) -> bool:
@@ -82,13 +93,13 @@ class _Row(QWidget):
         self.picture = picture
         icon = QFileIconProvider().icon(QFileInfo(single)) if single else QIcon()
         if single is None:
-            picture.setPixmap(glyphs.pixmap("float", 28, QColor(_SECONDARY)))
+            picture.setPixmap(glyphs.pixmap("float", 28, QColor(_colors().secondary)))
         else:
             picture.setPixmap(icon.pixmap(32, 32))
         name = QLabel(title)
-        name.setStyleSheet(f"color: {_TEXT}; font-weight: 600;")
+        name.setStyleSheet(f"color: {_colors().text}; font-weight: 600;")
         detail = QLabel(subtitle)
-        detail.setStyleSheet(f"color: {_SECONDARY}; font-size: 11px;")
+        detail.setStyleSheet(f"color: {_colors().secondary}; font-size: 11px;")
         name.setMinimumWidth(10)
         detail.setMinimumWidth(10)
         self._name, self._detail = name, detail
@@ -102,7 +113,9 @@ class _Row(QWidget):
         self.remove.setFlat(True)
         self.remove.setCursor(Qt.CursorShape.PointingHandCursor)
         self.remove.setToolTip(L("Remove from the shelf"))
-        self.remove.setStyleSheet(f"QPushButton {{ color: {_SECONDARY}; border: none; }} QPushButton:hover {{ color: white; }}")
+        colors = _colors()
+        self.remove.setStyleSheet(f"QPushButton {{ color: {colors.secondary}; border: none; }} "
+                                  f"QPushButton:hover {{ color: {colors.strong}; }}")
         self.remove.setVisible(False)
         self.remove.clicked.connect(lambda: self.removed.emit(single or ""))
         layout = QHBoxLayout(self)
@@ -144,7 +157,7 @@ class _Row(QWidget):
             painter = QPainter(self)
             painter.setRenderHint(QPainter.RenderHint.Antialiasing)
             painter.setPen(Qt.PenStyle.NoPen)
-            painter.setBrush(_HOVER)
+            painter.setBrush(_colors().hover)
             painter.drawRoundedRect(self.rect(), 8, 8)
 
     def mousePressEvent(self, event) -> None:  # noqa: ANN001, N802
@@ -182,7 +195,7 @@ class FloatShelf(QWidget):
         self._positioned = False
 
         title = QLabel("Float")
-        title.setStyleSheet("color: white; font-size: 14px; font-weight: 600;")
+        title.setStyleSheet(f"color: {_colors().strong}; font-size: 14px; font-weight: 600;")
         self._mode = QPushButton(L("Copy"))
         self._mode.setCheckable(True)
         self._mode.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -203,7 +216,7 @@ class FloatShelf(QWidget):
         self._empty = QLabel(L("Drop files here, or use Float on the Actions wheel."))
         self._empty.setWordWrap(True)
         self._empty.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._empty.setStyleSheet(f"color: {_SECONDARY}; font-size: 12px; padding: 14px 4px;")
+        self._empty.setStyleSheet(f"color: {_colors().secondary}; font-size: 12px; padding: 14px 4px;")
         self._rows = QVBoxLayout()
         self._rows.setSpacing(2)
         self._rows.setContentsMargins(0, 0, 0, 0)
@@ -231,13 +244,14 @@ class FloatShelf(QWidget):
         button.setToolTip(tip)
         button.setFixedSize(26, 26)
         button.setCursor(Qt.CursorShape.PointingHandCursor)
-        button.setStyleSheet(f"QPushButton {{ color: {_SECONDARY}; border: none; font-size: 13px; }}"
-                             "QPushButton:hover { color: white; }")
+        button.setStyleSheet(f"QPushButton {{ color: {_colors().secondary}; border: none; font-size: 13px; }}"
+                             f"QPushButton:hover {{ color: {_colors().strong}; }}")
         return button
 
     def _style_mode(self, moving: bool) -> None:
-        background = brand.BRAND.name() if moving else _LINE.name()
-        self._mode.setStyleSheet(f"QPushButton {{ color: {_TEXT}; background: {background}; border: none;"
+        background = brand.BRAND.name() if moving else _colors().line.name()
+        text = "white" if moving else _colors().text
+        self._mode.setStyleSheet(f"QPushButton {{ color: {text}; background: {background}; border: none;"
                                  " border-radius: 4px; padding: 2px 10px; }")
         self._mode.setText(L("Move") if moving else L("Copy"))
         self._mode.setToolTip(L("Dragging out moves the files. Click to copy them instead.") if moving
@@ -278,8 +292,9 @@ class FloatShelf(QWidget):
     def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setPen(_LINE)
-        painter.setBrush(QColor(_PANEL.red(), _PANEL.green(), _PANEL.blue(), 248))
+        colors = _colors()
+        painter.setPen(colors.line)
+        painter.setBrush(QColor(colors.panel.red(), colors.panel.green(), colors.panel.blue(), 248))
         painter.drawRoundedRect(self.rect().adjusted(10, 10, -10, -10), 12, 12)
 
     # MARK: Items
