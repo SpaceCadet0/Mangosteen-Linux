@@ -216,3 +216,18 @@ def test_first_launch_with_a_tool_starts_the_real_application(tmp_path):
     finally:
         if first.poll() is None:
             first.kill()
+
+
+def test_drags_are_only_watched_in_a_real_x11_session(monkeypatch):
+    from mangosteen.platform import x11
+
+    for name in ("DISPLAY", "XDG_SESSION_TYPE", "WAYLAND_DISPLAY", "MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND"):
+        monkeypatch.delenv(name, raising=False)
+    assert not x11.can_watch_drags()                      # no display at all
+    monkeypatch.setenv("DISPLAY", ":0")
+    monkeypatch.setenv("XDG_SESSION_TYPE", "x11")
+    assert x11.can_watch_drags()                          # a real X11 session
+    monkeypatch.setenv("XDG_SESSION_TYPE", "wayland")
+    assert not x11.can_watch_drags()                      # XWayland inside Wayland: leave drags alone
+    monkeypatch.setenv("MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND", "1")
+    assert x11.can_watch_drags()                          # unless asked to

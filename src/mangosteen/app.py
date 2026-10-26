@@ -81,7 +81,7 @@ class Application(QObject):
         integration.set_file_manager_menus(self.settings.file_manager_menu)
         self._start_monitor()
         log.write(f"started; tray available: {self.tray.available}; drag monitor: "
-                  f"{self.monitor is not None and self.monitor.running}; X11: {x11.is_x11_session()}")
+                  f"{self.monitor is not None and self.monitor.running}; X11: {x11.is_x11_session()}; Wayland: {x11.is_wayland_session()}")
         if not self.settings.welcome_shown:
             self.settings.welcome_shown = True
             self.settings.save()
@@ -103,7 +103,7 @@ class Application(QObject):
 
         if self.monitor is not None or not self._watch_drags or not self.settings.watch_drags:
             return
-        if not x11.is_x11_session():
+        if not x11.can_watch_drags():
             return
         monitor = DragMonitor()
         monitor.drag_started.connect(self._drag_started)
@@ -335,7 +335,7 @@ class Application(QObject):
     def _can_watch(self) -> bool:
         from .platform import x11
 
-        return x11.is_x11_session()
+        return x11.can_watch_drags()
 
     def show_welcome(self) -> None:
         from .ui.welcome import WelcomeWindow

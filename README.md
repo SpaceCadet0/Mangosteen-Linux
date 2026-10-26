@@ -139,11 +139,13 @@ mangosteen --settings | --welcome | --quit
 
 ### X11 and Wayland
 
-Seeing a drag in another application's window is only possible on **X11** (including XWayland sessions for programs
-that run under it). Mangosteen watches the X server's drag-and-drop selection and, on a GTK or Qt file manager, learns
-which files you are dragging. **Native Wayland windows** give no program a way to see another program's drag, so there
-the drag gesture is off and the tray, the file manager menus and the command line are used instead. `--no-drag` turns
-the watching off on X11 too.
+Seeing a drag in another application's window is only possible in an **X11 session**. Mangosteen watches the X
+server's drag-and-drop selection and, on a GTK or Qt file manager, learns which files you are dragging. In a **Wayland
+session** (the default on GNOME, and on Raspberry Pi OS with a Pi 4 or 5) the file manager is a native Wayland window
+whose drags no other program can see, so the drag gesture is switched off there and the tray, the file manager menus
+and the command line are used instead. Choosing an X11 session at login (or `raspi-config` on a Raspberry Pi) brings the
+gesture back. `--no-drag` turns the watching off on X11 too, and `MANGOSTEEN_WATCH_DRAGS_ON_WAYLAND=1` forces it on in a
+Wayland session whose file manager runs under XWayland.
 
 ## Install
 

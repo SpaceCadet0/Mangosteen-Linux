@@ -107,7 +107,7 @@ def _qt_application():  # noqa: ANN202
     """The QApplication, created on first use (the platform is chosen first)."""
     if os.environ.get("XDG_SESSION_TYPE") == "wayland" and os.environ.get("DISPLAY") \
             and "QT_QPA_PLATFORM" not in os.environ:
-        # XWayland gives windows a real position and lets Mangosteen see drags from other X11 windows.
+        # XWayland gives windows a real position (a native Wayland window cannot be placed at the pointer).
         os.environ["QT_QPA_PLATFORM"] = "xcb"
     from PySide6.QtWidgets import QApplication
 
