@@ -75,8 +75,8 @@ def step2():
 
 
 def step3():
-    xdo("keydown", "shift")
-    xdo("keyup", "shift")
+    # Held as long as a person would: the monitor polls the modifiers, an instant tap falls between polls.
+    xdo("keydown", "shift", "sleep", "0.15", "keyup", "shift")
 
 
 def step4():
