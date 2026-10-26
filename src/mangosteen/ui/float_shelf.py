@@ -7,7 +7,7 @@ from __future__ import annotations
 import os
 from concurrent.futures import ThreadPoolExecutor
 
-from PySide6.QtCore import QMimeData, QPoint, QSize, Qt, QUrl, Signal
+from PySide6.QtCore import QMimeData, QPoint, QRectF, QSize, Qt, QUrl, Signal
 from PySide6.QtGui import QColor, QDrag, QFont, QGuiApplication, QIcon, QImage, QImageReader, QPainter, QPixmap
 from PySide6.QtWidgets import (QFileIconProvider, QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout, QWidget)
 from PySide6.QtCore import QFileInfo
@@ -184,7 +184,16 @@ class FloatShelf(QWidget):
         self._thumbnail_ready.connect(self._show_thumbnail)
         self.setWindowTitle("Float")
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        from ..platform import x11
+
+        # Without a compositor a translucent window shows black where it is transparent; the shelf is then opaque
+        # and cut to its rounded panel instead.
+        self._opaque = not x11.has_compositor()
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, not self._opaque)
+        colors = _colors()
+        # Tooltips (a row's full path) get their own colours, so nothing of the shelf's styles reaches them.
+        self.setStyleSheet(f"QToolTip {{ color: {colors.text}; background-color: {colors.panel.name()}; "
+                           f"border: 1px solid {colors.line.name()}; padding: 3px; }}")
         self.setAcceptDrops(True)
         self.setFixedWidth(320)
         self._moves_files = moves_files
@@ -227,8 +236,12 @@ class FloatShelf(QWidget):
         self._scroll.setWidgetResizable(True)
         self._scroll.setFrameShape(QScrollArea.Shape.NoFrame)
         self._scroll.setMaximumHeight(420)
-        self._scroll.viewport().setStyleSheet("background: transparent;")
-        holder.setStyleSheet("background: transparent;")
+        # Scoped to these two widgets: an unscoped "background: transparent" also reached the rows' tooltips, which
+        # then had no background at all (a black bar without a compositor).
+        self._scroll.viewport().setObjectName("floatViewport")
+        self._scroll.viewport().setStyleSheet("#floatViewport { background: transparent; }")
+        holder.setObjectName("floatRows")
+        holder.setStyleSheet("#floatRows { background: transparent; }")
         outer = QVBoxLayout(self)
         outer.setContentsMargins(24, 20, 24, 24)
         outer.addWidget(self._header)
@@ -289,13 +302,27 @@ class FloatShelf(QWidget):
         if shiboken6.isValid(row):  # the list may have been rebuilt in the meantime
             row.set_thumbnail(image)
 
+    def _panel_rect(self):  # noqa: ANN202
+        return self.rect().adjusted(10, 10, -10, -10)
+
+    def resizeEvent(self, event) -> None:  # noqa: ANN001, N802
+        super().resizeEvent(event)
+        if self._opaque:
+            from PySide6.QtGui import QPainterPath, QRegion
+
+            path = QPainterPath()
+            path.addRoundedRect(QRectF(self._panel_rect()), 12, 12)
+            self.setMask(QRegion(path.toFillPolygon().toPolygon()))
+
     def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         colors = _colors()
+        if self._opaque:
+            painter.fillRect(self.rect(), colors.panel)
         painter.setPen(colors.line)
         painter.setBrush(QColor(colors.panel.red(), colors.panel.green(), colors.panel.blue(), 248))
-        painter.drawRoundedRect(self.rect().adjusted(10, 10, -10, -10), 12, 12)
+        painter.drawRoundedRect(self._panel_rect(), 12, 12)
 
     # MARK: Items
 

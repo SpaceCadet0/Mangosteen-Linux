@@ -20,7 +20,11 @@ class ProgressHud(QWidget):
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint
                             | Qt.WindowType.WindowDoesNotAcceptFocus)
         self.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        from ..platform import x11
+
+        # Without a compositor the transparent corners would show black: the panel is then cut to its rounded shape.
+        self._opaque = not x11.has_compositor()
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, not self._opaque)
         self.setFixedWidth(340)
         self.setWindowTitle("Mangosteen")
         self._title = QLabel(title)
@@ -54,6 +58,16 @@ class ProgressHud(QWidget):
         layout.addWidget(self._detail)
         layout.addWidget(self._bar)
         self.adjustSize()
+
+    def resizeEvent(self, event) -> None:  # noqa: ANN001, N802
+        super().resizeEvent(event)
+        if self._opaque:
+            from PySide6.QtCore import QRectF
+            from PySide6.QtGui import QPainterPath, QRegion
+
+            path = QPainterPath()
+            path.addRoundedRect(QRectF(self.rect()), 12, 12)
+            self.setMask(QRegion(path.toFillPolygon().toPolygon()))
 
     def paintEvent(self, _event) -> None:  # noqa: ANN001, N802
         painter = QPainter(self)
