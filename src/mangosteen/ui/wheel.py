@@ -24,7 +24,6 @@ _SHADOW = 18
 
 class WheelWidget(QWidget):
     selected = Signal(object)  # WheelItem
-    hovered = Signal()
     # The files of a drag, learnt when the drag enters the wheel (the wheel was opened before they were known).
     files_entered = Signal(list)
 
@@ -79,8 +78,6 @@ class WheelWidget(QWidget):
                 self.update(self.segment_path(i).boundingRect().toAlignedRect().adjusted(-2, -2, 2, 2))
         else:
             self.update()
-        if index is not None:
-            self.hovered.emit()
 
     def highlight_for_test(self, index: int | None) -> None:
         self._set_highlight(index)
@@ -384,14 +381,12 @@ class WheelController:
         self._items_for = items_for  # (WheelKind, list[str]) -> list[WheelItem]
         self.widget = WheelWidget()
         self.widget.selected.connect(self._selected)
-        self.widget.hovered.connect(self._hover)
         self.widget.files_entered.connect(self._files_entered)
         self._paths: list[str] = []
         self._kind = WheelKind.CONVERT
         self._hide_timer = QTimer()
         self._hide_timer.setSingleShot(True)
         self._hide_timer.timeout.connect(self.hide)
-        self.on_hover = lambda: None
         self.on_shown_without_files = lambda: None
         self.drag_mode = False
 
@@ -406,9 +401,6 @@ class WheelController:
     @property
     def paths(self) -> list[str]:
         return list(self._paths)
-
-    def _hover(self) -> None:
-        self.on_hover()
 
     def _selected(self, item: WheelItem) -> None:
         paths = list(self._paths)

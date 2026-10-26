@@ -41,7 +41,6 @@ class Settings:
     convert_modifier: str = "shift"
     tools_modifier: str = "ctrl"
     actions_modifier: str = "alt"
-    play_sounds: bool = True
     # Show the result in the file manager when a job ends.
     reveal_results: bool = False
     jpeg_quality: float = 0.85

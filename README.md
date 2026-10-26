@@ -176,7 +176,7 @@ left off the wheel; without Tesseract the text tool and the find-text button are
 ## Settings
 
 Which key opens which wheel (or none), whether the wheel opens while you drag, the language, quality of JPEG, HEIC, AVIF
-and WebP, keeping metadata, sounds, showing results in the file manager, the terminal to use, whether Float moves or
+and WebP, keeping metadata, showing results in the file manager, the terminal to use, whether Float moves or
 copies files, starting at login and the file manager menus. Everything is in one window: tray icon → **Settings…**.
 
 ## Build and test

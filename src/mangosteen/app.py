@@ -47,7 +47,6 @@ class Application(QObject):
         self._watch_drags = watch_drags
         self._windows: dict[str, object] = {}
         self._tools: list[object] = []
-        self._sounds = None
 
         self.tray.choose_files.connect(self.choose_files)
         self.tray.toggle_shelf.connect(self.shelf.toggle)
@@ -61,7 +60,6 @@ class Application(QObject):
         self.tray.delete_result.connect(self._delete_result)
         self.tray.clear_history.connect(self.history.clear)
         self.notifier.clicked.connect(self.actions.reveal)
-        self.wheel.on_hover = self._hover_sound
         self.wheel.on_shown_without_files = self._nudge_soon
 
         self.server = ipc.Server()
@@ -194,7 +192,6 @@ class Application(QObject):
         self.notifier.notify(title, message, error=error, reveal=reveal)
 
     def _results_ready(self, outputs: list[str]) -> None:
-        self._done_sound()
         if self.settings.reveal_results and outputs:
             self.actions.reveal(outputs[-1])
 
@@ -368,23 +365,6 @@ class Application(QObject):
                 self._start_monitor()
             else:
                 self._stop_monitor()
-
-    # MARK: Sounds
-
-    def _hover_sound(self) -> None:
-        self._play("hover")
-
-    def _done_sound(self) -> None:
-        self._play("done")
-
-    def _play(self, name: str) -> None:
-        if not self.settings.play_sounds:
-            return
-        if self._sounds is None:
-            from .platform.sounds import Sounds
-
-            self._sounds = Sounds()
-        self._sounds.play(name)
 
 
 __all__ = ["Application", "QCursor", "QGuiApplication"]
