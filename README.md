@@ -38,9 +38,9 @@ The quickest way: download the AppImage, make it executable and start it. Nothin
 rights, FFmpeg included.
 
 ```bash
-wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/Mangosteen-0.2.0-x86_64.AppImage
-chmod +x Mangosteen-0.2.0-x86_64.AppImage
-./Mangosteen-0.2.0-x86_64.AppImage
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.1/Mangosteen-0.2.1-x86_64.AppImage
+chmod +x Mangosteen-0.2.1-x86_64.AppImage
+./Mangosteen-0.2.1-x86_64.AppImage
 ```
 
 Mangosteen appears in the system tray and adds itself to the applications menu; the welcome window shows how it
@@ -52,8 +52,8 @@ works. All versions are on the [Releases](https://github.com/SpaceCadet0/Mangost
 FFmpeg and Tesseract from the system's packages:
 
 ```bash
-wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.0/mangosteen_0.2.0_amd64.deb
-sudo apt install ./mangosteen_0.2.0_amd64.deb
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.1/mangosteen_0.2.1_amd64.deb
+sudo apt install ./mangosteen_0.2.1_amd64.deb
 ```
 
 **From source** — for any architecture, including ARM (Raspberry Pi), with Python 3.10 or newer:
