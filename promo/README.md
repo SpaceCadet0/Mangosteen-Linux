@@ -8,8 +8,9 @@ key without letting go, drop it on a segment. The icons, wheels and windows are 
 python promo/scripts/make_assets.py          # from the repository root: icons, thumbnails, Trim and Float snapshots
 cd promo && npm ci
 npx remotion studio                          # preview
-npx remotion render LinuxDemoSquare out/LinuxDemoSquare.mp4 --codec=h264 --crf=12   # 1000 × 1000, welcome window
-npx remotion render LinuxDemo out/LinuxDemo.mp4 --codec=h264 --crf=12               # 1600 × 1000, README
+# Lossless PNG frames: the videos are encoded from them, never from an already compressed video.
+npx remotion render LinuxDemo frames-wide --sequence --image-format=png               # 1600 × 1000, README
+npx remotion render LinuxDemoSquare frames-square --sequence --image-format=png       # 1000 × 1000, welcome window
 ```
 
 Add `--browser-executable=<chrome-headless-shell>` to use a browser that is already installed.
@@ -17,13 +18,16 @@ Add `--browser-executable=<chrome-headless-shell>` to use a browser that is alre
 Then, from the repository root:
 
 ```bash
-ffmpeg -i promo/out/LinuxDemoSquare.mp4 -vf scale=600:600:flags=lanczos -an -c:v libx264 -preset slow -crf 24 \
-  -pix_fmt yuv420p -movflags +faststart src/mangosteen/assets/welcome-demo.mp4
-ffmpeg -ss 2.9 -i src/mangosteen/assets/welcome-demo.mp4 -frames:v 1 src/mangosteen/assets/welcome-demo.png
-ffmpeg -i promo/out/LinuxDemo.mp4 -an -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -movflags +faststart \
-  docs/media/mangosteen-demo.mp4
-ffmpeg -i promo/out/LinuxDemo.mp4 -vf fps=30,scale=1200:-1:flags=lanczos -c:v libwebp_anim -q:v 80 \
-  -compression_level 6 -loop 0 docs/images/demo.webp
+# README animation: every frame a keyframe (-kmin 0 -kmax 1), so nothing of a vanished element is left behind.
+mkdir -p promo/frames-readme
+ffmpeg -i promo/frames-wide/element-%03d.png -vf scale=1200:-1:flags=lanczos promo/frames-readme/f-%03d.png
+img2webp -loop 0 -kmin 0 -kmax 1 -lossy -q 85 -m 6 -d 33 promo/frames-readme/f-*.png -o docs/images/demo.webp
+ffmpeg -framerate 30 -i promo/frames-wide/element-%03d.png -vf format=yuv420p -an -c:v libx264 -preset slow \
+  -tune animation -crf 17 -g 30 -movflags +faststart docs/media/mangosteen-demo.mp4
+# Welcome window (shown at 300 × 300; 600 × 600 for HiDPI) and its still.
+ffmpeg -framerate 30 -i promo/frames-square/element-%03d.png -vf scale=600:600:flags=lanczos,format=yuv420p -an \
+  -c:v libx264 -preset slow -tune animation -crf 17 -g 30 -movflags +faststart src/mangosteen/assets/welcome-demo.mp4
+ffmpeg -i promo/frames-square/element-087.png -vf scale=600:600:flags=lanczos src/mangosteen/assets/welcome-demo.png
 ```
 
 The sample photos are `docs/samples/*.webp`.
