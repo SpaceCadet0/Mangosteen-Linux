@@ -159,6 +159,9 @@ class SettingsWindow(QWidget):
         self._changed(name)
 
     def present(self) -> None:
+        from . import screenfit
+
+        screenfit.fit(self)
         self.show()
         self.raise_()
         self.activateWindow()

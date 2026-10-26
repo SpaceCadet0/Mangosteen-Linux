@@ -69,7 +69,7 @@ class TrayController(QObject):
         title = menu.addAction("Mangosteen")
         title.setEnabled(False)
         menu.addSeparator()
-        for kind, glyph in ((WheelKind.CONVERT, "image"), (WheelKind.TOOLS, "edit"), (WheelKind.ACTIONS, "float")):
+        for kind, glyph in ((WheelKind.CONVERT, "image"), (WheelKind.TOOLS, "edit"), (WheelKind.ACTIONS, "actions")):
             action = menu.addAction(glyphs.icon(glyph), wheel_title(kind) + "…")
             action.triggered.connect(lambda _checked=False, k=kind: self.choose_files.emit(k))
         menu.addAction(glyphs.icon("float"), L("Float shelf")).triggered.connect(lambda: self.toggle_shelf.emit())

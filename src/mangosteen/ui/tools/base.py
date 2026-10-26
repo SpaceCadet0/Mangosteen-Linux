@@ -6,11 +6,11 @@ from __future__ import annotations
 import os
 
 from PySide6.QtCore import QTimer
-from PySide6.QtGui import QGuiApplication, QKeySequence, QShortcut
+from PySide6.QtGui import QKeySequence, QShortcut
 from PySide6.QtWidgets import (QFormLayout, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget)
 
 from ...core.loc import L, count, fmt
-from .. import art
+from .. import art, screenfit
 
 
 class ToolWindow(QWidget):
@@ -92,19 +92,19 @@ class ToolWindow(QWidget):
         return True
 
     def present(self) -> None:
-        """Shows the window in front of everything, on the screen under the pointer, inside its work area."""
+        """Shows the window in front of everything, on the screen under the pointer, inside its work area. On a screen
+        too small for it the content scrolls and the footer with the buttons stays in view."""
         self.adjustSize()
-        from PySide6.QtGui import QCursor
-
-        screen = QGuiApplication.screenAt(QCursor.pos()) or QGuiApplication.primaryScreen()
-        area = screen.availableGeometry()
-        width = min(self.width(), area.width() - 40)
-        height = min(self.height(), area.height() - 40)
-        self.resize(width, height)
-        self.move(area.x() + (area.width() - width) // 2, area.y() + (area.height() - height) // 2)
+        screenfit.fit(self, wrap=ToolWindow._scroll_body, center=True)
         self.show()
         self.raise_()
         self.activateWindow()
+
+    def _scroll_body(self) -> None:
+        self._root.removeItem(self._body_holder)
+        self._body_holder.setParent(None)
+        self._root.insertWidget(0, screenfit.scroll_layout(self._body_holder), 1)
+        screenfit.unlock(self)
 
     def run_and_close(self) -> None:
         QTimer.singleShot(0, self.close)

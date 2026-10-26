@@ -166,7 +166,7 @@ class WelcomeWindow(QWidget):
                 (WheelKind.TOOLS, "edit", L("Tools"),
                  L("Compress, crop and resize in pixels, photo editor, annotate, trim a video and more, with a live "
                    "preview.")),
-                (WheelKind.ACTIONS, "float", L("Actions"),
+                (WheelKind.ACTIONS, "actions", L("Actions"),
                  L("Float shelf, copy, move, copy the path or open a terminal."))):
             card = QWidget()
             column = QVBoxLayout(card)
@@ -215,6 +215,9 @@ class WelcomeWindow(QWidget):
         super().closeEvent(event)
 
     def present(self) -> None:
+        from . import screenfit
+
+        screenfit.fit(self)
         self.show()
         self.raise_()
         self.activateWindow()

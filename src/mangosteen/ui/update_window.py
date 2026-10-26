@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (QHBoxLayout, QLabel, QPlainTextEdit, QProgressBar
 from .. import __version__
 from ..core import updates
 from ..core.loc import L, fmt
-from . import art
+from . import art, screenfit
 
 
 class _Worker(QObject):
@@ -107,6 +107,7 @@ class UpdateWindow(QWidget):
         self.action_button.setText(action)
         self.page_button.setVisible(page)
         self.resize(560, 480 if notes else 200)
+        screenfit.fit(self)
 
     def check(self) -> None:
         self._busy = True

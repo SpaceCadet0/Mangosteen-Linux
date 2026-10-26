@@ -256,6 +256,11 @@ def float_(p):
     _poly(p, 8, 10.5, 12, 14.5, 16, 10.5)
 
 
+def actions(p):
+    _path(p, lambda q: (q.moveTo(13.5, 2.5), q.lineTo(5, 13.5), q.lineTo(11.5, 13.5), q.lineTo(10.5, 21.5),
+                        q.lineTo(19, 10.5), q.lineTo(12.5, 10.5), q.closeSubpath()))
+
+
 def copy(p):
     _rect(p, 5, 5, 14, 16)
     _rect(p, 9, 3, 6, 4, 1.2)
@@ -371,7 +376,7 @@ GLYPHS: dict[str, Callable[[QPainter], None]] = {
     "channels": channels, "visualizer": visualizer, "hide": hide, "crop": crop, "join": join, "compress": compress,
     "frames": frames, "edit": edit, "annotate": annotate, "pages": pages, "background": background, "collage": collage,
     "info": info, "createPdf": create_pdf, "extract": extract, "merge": merge, "text": text,
-    "removeBackground": remove_background, "float": float_, "copy": copy, "move": move, "path": path,
+    "removeBackground": remove_background, "float": float_, "actions": actions, "copy": copy, "move": move, "path": path,
     "terminal": terminal, "rotateLeft": rotate_left, "rotateRight": rotate_right, "flipH": flip_h, "flipV": flip_v,
     "select": select, "arrow": arrow, "ellipse": ellipse, "textmark": textmark, "number": number,
     "highlighter": highlighter, "magnifier": magnifier, "play": play, "pause": pause, "marker": marker,
