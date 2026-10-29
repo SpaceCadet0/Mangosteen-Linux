@@ -26,6 +26,9 @@ class WheelWidget(QWidget):
     selected = Signal(object)  # WheelItem
     # The files of a drag, learnt when the drag enters the wheel (the wheel was opened before they were known).
     files_entered = Signal(list)
+    # The files the drop itself carries, sent just before `selected`: a file manager may still have been writing its
+    # list when it was first read, so the drop's list can be longer.
+    files_dropped = Signal(list)
 
     def __init__(self) -> None:
         super().__init__()
@@ -343,6 +346,7 @@ class WheelWidget(QWidget):
             return
         event.setDropAction(Qt.DropAction.CopyAction)
         event.accept()
+        self.files_dropped.emit([u.toLocalFile() for u in event.mimeData().urls() if u.isLocalFile()])
         self.selected.emit(self.items[index])
 
     # MARK: Mouse (wheel opened from the tray or a file manager)
@@ -382,6 +386,7 @@ class WheelController:
         self.widget = WheelWidget()
         self.widget.selected.connect(self._selected)
         self.widget.files_entered.connect(self._files_entered)
+        self.widget.files_dropped.connect(self._files_dropped)
         self._paths: list[str] = []
         self._kind = WheelKind.CONVERT
         self._hide_timer = QTimer()
@@ -414,6 +419,14 @@ class WheelController:
             return
         self._paths = paths
         self.switch(self._kind)
+
+    def _files_dropped(self, paths: list[str]) -> None:
+        """Of the list learnt earlier and the drop's own, the one with more files wins."""
+        if len(paths) > len(self._paths):
+            from ..core import log
+
+            log.write(f"drop carried {len(paths)} files, {len(self._paths)} were known before")
+            self._paths = paths
 
     def show(self, kind: WheelKind, paths: list[str] | None, point=None, drag_mode: bool = True) -> None:  # noqa: ANN001
         """`paths` None means a drag is going on whose files are not known yet; the wheel then learns them when

@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr tesseract-ocr-eng xvfb xdotool \
-            libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
+            python3-gi gir1.2-gtk-3.0 libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
             libxcb-shape0 libxcb-xinerama0 libegl1 libgl1 libpulse0 fonts-dejavu-core
 
       - name: Install
@@ -45,6 +45,8 @@ jobs:
       - name: Drag detection under a virtual X server
         run: |
           xvfb-run -a python tests/xvfb_drag_scenario.py
+          MANY=60 xvfb-run -a python tests/xvfb_drag_scenario.py
+          xvfb-run -a python tests/xvfb_gtk_source_scenario.py
           xvfb-run -a python tests/xvfb_app_scenario.py
 
   package:

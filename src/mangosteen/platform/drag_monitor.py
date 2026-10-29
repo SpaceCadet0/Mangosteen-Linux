@@ -177,6 +177,12 @@ class DragMonitor(QObject):
                 break
             tapped = tracker.update(state & sum(_MASKS.values()))
             if tapped is not None and (name := modifier_name(tapped)):
+                # Read the list again: at the start of the drag the file manager may not have finished writing it
+                # (with many files selected), and by the key tap it has. The longer list is kept.
+                again = self._request_files(connection, requestor, xdnd, uri_list, holder)
+                if len(again) > len(paths):
+                    log.write(f"drag: {len(again)} files at the key tap, {len(paths)} at the start")
+                    paths = again
                 self.modifier_tapped.emit(name, paths)
             time.sleep(_POLL_SECONDS)
         self.drag_ended.emit()

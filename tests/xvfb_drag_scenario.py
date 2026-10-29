@@ -1,5 +1,8 @@
 """Run under a real X server (xvfb-run): a Qt window starts a file drag, xdotool taps Shift mid-drag, the wheel must
-appear under the pointer, and a drop on its first segment must select it. Exit code 0 means it all happened."""
+appear under the pointer, and a drop on its first segment must select it. Exit code 0 means it all happened.
+
+With MANY=60 the drag carries 60 files and the source answers the first request for its list with only 58 of them,
+the way a file manager that has not finished writing the list does: all 60 must still reach the chosen segment."""
 
 import os
 import subprocess
@@ -11,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 os.environ.setdefault("MANGOSTEEN_HOME", tempfile.mkdtemp())
 os.environ["QT_QPA_PLATFORM"] = "xcb"
 
-from PySide6.QtCore import QMimeData, QPoint, Qt, QTimer, QUrl  # noqa: E402
+from PySide6.QtCore import QByteArray, QMetaType, QMimeData, QPoint, Qt, QTimer, QUrl  # noqa: E402
 from PySide6.QtGui import QDrag  # noqa: E402
 from PySide6.QtWidgets import QApplication, QLabel  # noqa: E402
 
@@ -24,7 +27,36 @@ from mangosteen.ui.wheel import DIAMETER, WheelController  # noqa: E402
 work = Path(tempfile.mkdtemp())
 photo = work / "photo with space.jpg"
 photo.write_bytes(b"x")
+MANY = int(os.environ.get("MANY", "0"))
+photos = [photo]
+for index in range(1, MANY):
+    extra = work / f"photo {index:02d}.jpg"
+    extra.write_bytes(b"x")
+    photos.append(extra)
 log: list[str] = []
+
+
+class LateList(QMimeData):
+    """A file list that is complete only from the second time it is asked for."""
+
+    def __init__(self, paths) -> None:  # noqa: ANN001
+        super().__init__()
+        self.paths, self.asked = paths, 0
+
+    def formats(self):  # noqa: ANN201
+        return ["text/uri-list"]
+
+    def hasFormat(self, mime) -> bool:  # noqa: ANN001, N802
+        return mime == "text/uri-list"
+
+    def retrieveData(self, mime, kind):  # noqa: ANN001, ANN201, N802
+        if mime != "text/uri-list":
+            return None
+        self.asked += 1
+        shown = [QUrl.fromLocalFile(str(p)) for p in (self.paths if self.asked > 1 else self.paths[:len(self.paths) - 2])]
+        if kind.id() == QMetaType.Type.QVariantList.value:  # urls() inside this process
+            return shown
+        return QByteArray("".join(url.toString() + "\r\n" for url in shown).encode())  # another process, over X
 
 
 def xdo(*args: str) -> None:
@@ -34,8 +66,11 @@ def xdo(*args: str) -> None:
 class Source(QLabel):
     def mouseMoveEvent(self, event):  # noqa: N802
         if event.buttons() & Qt.MouseButton.LeftButton:
-            mime = QMimeData()
-            mime.setUrls([QUrl.fromLocalFile(str(photo))])
+            if MANY:
+                mime = LateList(photos)
+            else:
+                mime = QMimeData()
+                mime.setUrls([QUrl.fromLocalFile(str(photo))])
             drag = QDrag(self)
             drag.setMimeData(mime)
             drag.exec(Qt.DropAction.CopyAction)
@@ -49,9 +84,9 @@ wheel = WheelController(lambda item, paths: (chosen.append((item.id, paths)), QT
                         wheel_catalog.items)
 monitor = DragMonitor()
 started: list = []
-monitor.drag_started.connect(lambda paths: (started.append(paths), log.append(f"drag_started {paths}")))
+monitor.drag_started.connect(lambda paths: (started.append(paths), log.append(f"drag_started {len(paths)} files")))
 monitor.modifier_tapped.connect(lambda name, paths: (
-    log.append(f"tap {name}"),
+    log.append(f"tap {name}: {len(paths)} files"),
     wheel.show(WheelKind.CONVERT, paths or None)))
 wheel.on_shown_without_files = lambda: QTimer.singleShot(30, lambda: log.append(f"nudge {nudge()}"))
 monitor.drag_ended.connect(lambda: (log.append("drag_ended"), wheel.drag_ended()))
@@ -108,7 +143,7 @@ QTimer.singleShot(9000, timeout)
 code = app.exec()
 monitor.stop()
 print("\n".join(log))
-print("chosen:", chosen)
-ok = code == 0 and chosen and chosen[0][0] == "convert.png" and chosen[0][1] == [str(photo)] and started
+print("chosen:", [(item, len(paths)) for item, paths in chosen])
+ok = code == 0 and chosen and chosen[0][0] == "convert.png" and chosen[0][1] == [str(p) for p in photos] and started
 print("OK" if ok else "FAILED")
 sys.exit(0 if ok else 1)

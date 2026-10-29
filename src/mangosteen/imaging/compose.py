@@ -78,6 +78,11 @@ class CollageLayout(Enum):
     FEATURED = "featured"
 
 
+class CollageBackground(Enum):
+    COLOR = "color"
+    GRADIENT = "gradient"
+
+
 @dataclass(frozen=True)
 class CollageSettings:
     layout: CollageLayout = CollageLayout.GRID
@@ -88,6 +93,12 @@ class CollageSettings:
     corner_radius: float = 0.0  # as a fraction of each cell's shorter side
     background: RGBA = WHITE
     format: FileFormat = FileFormat.JPG
+    background_style: CollageBackground = CollageBackground.COLOR
+    # The same gradient as Background starts with, drawn across the whole canvas.
+    gradient_start: RGBA = RGBA(0.98, 0.62, 0.36)
+    gradient_end: RGBA = RGBA(0.55, 0.27, 0.68)
+    gradient_angle: float = 135.0
+    shadow: float = 0.0  # 0…1
 
 
 Box = tuple[float, float, float, float]  # x, y, width, height
@@ -186,15 +197,45 @@ def compose_collage(photos: list[Image.Image], settings: CollageSettings) -> Ima
     width, height, cells = collage_layout(aspects, settings)
     if width < 1 or height < 1:
         raise ValueError("The collage has no size.")
-    canvas = Image.new("RGBA", (int(width), int(height)), settings.background.to_tuple())
-    for photo, (x, y, w, h) in zip(photos, cells):
-        size = (max(1, round(w)), max(1, round(h)))
-        fitted = _aspect_fill(photo.convert("RGBA"), size)
-        radius = settings.corner_radius * min(size)
-        if radius > 0.5:
-            fitted.putalpha(Image.composite(fitted.getchannel("A"), Image.new("L", size, 0), _rounded_mask(size, radius)))
-        canvas.alpha_composite(fitted, (round(x), round(y)))
+    size = (int(width), int(height))
+    if settings.background_style is CollageBackground.GRADIENT:
+        canvas = _gradient(size, settings.gradient_start, settings.gradient_end, settings.gradient_angle)
+    else:
+        canvas = Image.new("RGBA", size, settings.background.to_tuple())
+    boxes = [((round(x), round(y)), (max(1, round(w)), max(1, round(h)))) for x, y, w, h in cells]
+    masks = [_rounded_mask(cell, radius) if (radius := settings.corner_radius * min(cell)) > 0.5 else None
+             for _origin, cell in boxes]
+    # Every shadow first, then the photos, so no shadow falls on a neighbouring photo.
+    if settings.shadow > 0:
+        for (origin, cell), mask in zip(boxes, masks):
+            _cell_shadow(canvas, origin, cell, mask, settings.shadow)
+    for photo, (origin, cell), mask in zip(photos, boxes, masks):
+        fitted = _aspect_fill(photo.convert("RGBA"), cell)
+        if mask is not None:
+            fitted.putalpha(Image.composite(fitted.getchannel("A"), Image.new("L", cell, 0), mask))
+        canvas.alpha_composite(fitted, origin)
     return canvas.convert("RGB") if not settings.format.supports_alpha else canvas
+
+
+def _cell_shadow(canvas: Image.Image, origin: tuple[int, int], cell: tuple[int, int], mask: Image.Image | None,
+                 shadow: float) -> None:
+    """A soft shadow of one cell's shape: blur shadow × shorter side × 0.08, moved down by 0.35 of the blur, black at
+    0.25 + shadow × 0.3."""
+    blur = shadow * min(cell) * 0.08
+    if blur < 0.5:
+        return
+    pad = int(blur * 3) + 2
+    offset = round(blur * 0.35)
+    alpha = Image.new("L", (cell[0] + pad * 2, cell[1] + pad * 2), 0)
+    alpha.paste(mask if mask is not None else Image.new("L", cell, 255), (pad, pad))
+    blurred = cv2.GaussianBlur(np.asarray(alpha), (0, 0), max(blur / 2, 0.1))
+    layer = Image.new("RGBA", alpha.size, (0, 0, 0, 0))
+    layer.putalpha(Image.fromarray((blurred.astype(np.float32) * (0.25 + shadow * 0.3)).astype(np.uint8), "L"))
+    left, top = origin[0] - pad, origin[1] + offset - pad
+    # alpha_composite takes no negative positions: crop what lies outside the canvas.
+    crop_left, crop_top = max(0, -left), max(0, -top)
+    canvas.alpha_composite(layer.crop((crop_left, crop_top, layer.width, layer.height)),
+                           (left + crop_left, top + crop_top))
 
 
 def collage_files(paths: list[str], settings: CollageSettings, options: ConversionOptions) -> str:
@@ -324,4 +365,4 @@ def frame_file(path: str, settings: FrameSettings, options: ConversionOptions) -
                                           f"{output_naming.base_name(path)} ({L('background')})", target.extension, produce)
 
 
-__all__ = ["RGBA", "WHITE", "CanvasAspect", "CollageSettings", "FrameSettings", "replace", "field", "qtutil"]
+__all__ = ["RGBA", "WHITE", "CanvasAspect", "CollageBackground", "CollageSettings", "FrameSettings", "replace", "field", "qtutil"]
