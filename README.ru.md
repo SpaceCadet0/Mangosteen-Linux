@@ -38,9 +38,9 @@
 администратора не нужны, FFmpeg уже внутри.
 
 ```bash
-wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.1/Mangosteen-0.2.1-x86_64.AppImage
-chmod +x Mangosteen-0.2.1-x86_64.AppImage
-./Mangosteen-0.2.1-x86_64.AppImage
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.2/Mangosteen-0.2.2-x86_64.AppImage
+chmod +x Mangosteen-0.2.2-x86_64.AppImage
+./Mangosteen-0.2.2-x86_64.AppImage
 ```
 
 Mangosteen появится в системном трее и добавит себя в меню приложений; окно приветствия покажет, как им пользоваться.
@@ -52,8 +52,8 @@ Mangosteen появится в системном трее и добавит с�
 Tesseract из пакетов системы:
 
 ```bash
-wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.1/mangosteen_0.2.1_amd64.deb
-sudo apt install ./mangosteen_0.2.1_amd64.deb
+wget https://github.com/SpaceCadet0/Mangosteen-Linux/releases/download/v0.2.2/mangosteen_0.2.2_amd64.deb
+sudo apt install ./mangosteen_0.2.2_amd64.deb
 ```
 
 **Из исходников** — для любой архитектуры, в том числе ARM (Raspberry Pi), нужен Python 3.10 или новее:
